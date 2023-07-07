@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-radial-gradient {
+  /* background: radial-gradient(circle, rgb(253, 230, 138), #fff); */
+  background: rgb(246, 255, 69);
+  background: radial-gradient(circle, rgba(246, 255, 69, 0.6657256652661064) 3%, rgba(255, 255, 255, 0.9934567577030813) 13%);
+
+}
+
+[contenteditable=true]:empty:before {
+  content: attr(placeholder);
+  display: block;
+  color: #aaa;
+}
+
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #fff;
+}
+
+input:checked ~ .toggle {
+  background-color: rgb(31 41 55);
+}
