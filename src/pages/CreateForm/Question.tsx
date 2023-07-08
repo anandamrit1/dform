@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { QuestionType } from '../../types/Form';
 import { ShortAnswerEditable, ShortAnswerComponent } from '../../components/questions/ShortAnswer';
 import { LongAnswerEditable, LongAnswerComponent } from '../../components/questions/LongAnswer';
+import { SingleOptionAnswerComponent, SingleOptionAnswerEditable } from '../../components/questions/SingleOptionAnswer';
+import { MultipleOptionAnswerComponent, MultipleOptionAnswerEditable } from '../../components/questions/MultipleOptionAnswer';
+import { EmailAnswerComponent, EmailAnswerEditable } from '../../components/questions/EmailAnswer';
 
 interface QuestionProps {
     question: QuestionType,
@@ -48,6 +51,33 @@ const Question: React.FC<QuestionProps> = ({ question, handleQuestionChange }) =
                     {isEditing ?
                         <LongAnswerEditable onChange={handleQuestionChange} question={question} />
                         : <LongAnswerComponent question={question} isPreview />
+                    }
+                </div>
+            </>
+        case 'singleOption':
+            return <>
+                <div className='w-full' ref={wrapperRef} onClick={onFocus} >
+                    {isEditing ?
+                        <SingleOptionAnswerEditable onChange={handleQuestionChange} question={question} />
+                        : <SingleOptionAnswerComponent question={question} isPreview />
+                    }
+                </div>
+            </>
+        case 'multipleOption':
+            return <>
+                <div className='w-full' ref={wrapperRef} onClick={onFocus} >
+                    {isEditing ?
+                        <MultipleOptionAnswerEditable onChange={handleQuestionChange} question={question} />
+                        : <MultipleOptionAnswerComponent question={question} isPreview />
+                    }
+                </div>
+            </>
+        case 'email':
+            return <>
+                <div className='w-full' ref={wrapperRef} onClick={onFocus} >
+                    {isEditing ?
+                        <EmailAnswerEditable onChange={handleQuestionChange} question={question} />
+                        : <EmailAnswerComponent question={question} isPreview />
                     }
                 </div>
             </>

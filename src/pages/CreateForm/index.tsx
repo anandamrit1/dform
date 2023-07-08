@@ -1,4 +1,4 @@
-import { IconButton } from "@mui/material"
+import { IconButton, Tooltip } from "@mui/material"
 import { useState } from "react";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Palette, Share, Visibility } from "@mui/icons-material";
@@ -15,12 +15,14 @@ function CreateForm() {
         <div className=" h-screen flex flex-col items-center">
             <div className="border-b-2 shadow-[0_4px_24px_rgba(0,0,0,0.1)] w-screen bg-white py-10 flex justify-between">
                 <div className="flex gap-6 px-8">
-                    <IconButton
-                        size="medium"
-                        aria-label="back"
-                    >
-                        <ArrowBackIosIcon />
-                    </IconButton>
+                    <Tooltip title="Add a question" placement="top">
+                        <IconButton
+                            size="medium"
+                            aria-label="back"
+                        >
+                            <ArrowBackIosIcon />
+                        </IconButton>
+                    </Tooltip>
                     <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Untitled Form"
                         className="box-border border-b-2 border-white h-8 focus:outline-none focus:border-b-2 focus:border-blue-500 px-2 py-2" />
                 </div>
