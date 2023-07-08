@@ -1,15 +1,17 @@
 import { IconButton, Tooltip } from "@mui/material"
-import { useState } from "react";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Palette, Share, Visibility } from "@mui/icons-material";
 
 import QuestionsList from "./QuestionList";
-import ContentEditableInput from "../../components/ContentEditableInputWithState";
+import { atom, useRecoilState } from "recoil";
 
+export const formTitleAtom = atom<string>({
+    key: 'formTitleAtom',
+    default: 'Untitled Form'
+})
 
 function CreateForm() {
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
+    const [title, setTitle] = useRecoilState(formTitleAtom);
 
     return (
         <div className=" h-screen flex flex-col items-center">
@@ -48,27 +50,7 @@ function CreateForm() {
                 </div>
             </div>
             <div className="flex-grow overflow-y-auto w-screen py-24">
-                <div className="flex flex-col items-center rounded-lg p-10 min-h-[80%] gap-2 m-auto border-[1px] border-black lg:w-1/2 w-5/6 bg-white">
-                    <div id="form-metadata" className="flex flex-col w-full items-center gap-2 py-6 px-10">
-                            <ContentEditableInput
-                                placeholder='Form Title'
-                                value={title}
-                                onChange={(value) => setTitle(value)}
-                                className='font-bold text-2xl'
-                            />
-                            <ContentEditableInput
-                                placeholder='Form Description'
-                                value={description}
-                                onChange={(value) => setDescription(value)}
-                                className=''
-                            />
-                    </div>
-
-                    <QuestionsList />
-                    <p className="m-auto mt-8">
-                        Powered by <span className="font-bold cursor-pointer">TaleFlow</span>
-                    </p>
-                </div>
+                <QuestionsList />
             </div>
         </div>
     )

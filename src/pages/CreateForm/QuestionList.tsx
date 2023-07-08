@@ -7,6 +7,8 @@ import { IconButton } from '@mui/material';
 import { Tooltip } from 'react-bootstrap';
 import { GetDefaultQuestion } from '../../utils/QuestionUtils';
 import AddQuestionModal from '../../components/AddQuestionModal';
+import ContentEditableInput from '../../components/ContentEditableInputWithState';
+import { formTitleAtom } from '.';
 
 
 export const questionListAtom = atom<QuestionType[]>({
@@ -71,7 +73,11 @@ interface QuestionsListProps {
 
 const QuestionsList: React.FC<QuestionsListProps> = () => {
     const [questions, setQuestions] = useRecoilState(questionListAtom);
+    const [title, setTitle] = useRecoilState(formTitleAtom);
+
     const [addQuestionModal, setAddQuestionModal] = useState(false);
+    const [description, setDescription] = useState("");
+
 
     const handleQuestionChange = (formFieldId: string, question: QuestionType) => {
         setQuestions((oldQuestions) => {
@@ -97,7 +103,23 @@ const QuestionsList: React.FC<QuestionsListProps> = () => {
 
     return (
         <>
-            {questions.map((question, index) => (
+            <div className="flex flex-col items-center rounded-lg p-10 min-h-[80%] gap-2 m-auto border-[1px] border-black lg:w-1/2 w-5/6 bg-white">
+                    <div id="form-metadata" className="flex flex-col w-full items-center gap-2 py-6 px-10">
+                            <ContentEditableInput
+                                placeholder='Form Title'
+                                value={title}
+                                onChange={(value) => setTitle(value)}
+                                className='font-bold text-2xl'
+                            />
+                            <ContentEditableInput
+                                placeholder='Form Description'
+                                value={description}
+                                onChange={(value) => setDescription(value)}
+                                className=''
+                            />
+                    </div>
+
+                    {questions.map((question, index) => (
                 <Question key={index} question={question} handleQuestionChange={handleQuestionChange} />
             ))}
             <p className="m-auto mt-8">
@@ -107,6 +129,11 @@ const QuestionsList: React.FC<QuestionsListProps> = () => {
                     </IconButton>
                 </Tooltip>
             </p>
+                    <p className="m-auto mt-8">
+                        Powered by <span className="font-bold cursor-pointer">TaleFlow</span>
+                    </p>
+                </div>
+            
             {addQuestionModal && (
                 <div>
                     <div
