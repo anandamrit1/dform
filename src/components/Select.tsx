@@ -35,10 +35,14 @@ function Select({className, value, formFieldId}: SelectProps) {
         });
     };
 
+    console.log(value);
   return (
     <select value={value} onChange={(e) => handleTypeChange(e.target.value)} className={classNames("px-4 py-3 rounded-md outline-none border-[1px] border-black focus:bg-gray-100 cursor-pointer", className)}>
         <option value="shortAnswer">Short Answer</option>
         <option value="longAnswer">Long Answer</option>
+        <option value="singleOption">Single Option</option>
+        <option value="multipleOption">Multiple Options</option>
+        <option value="email">Email</option>
     </select>
   )
 }
