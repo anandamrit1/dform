@@ -1,4 +1,4 @@
-import ContentEditableInput from '../ContentEditableInputWithState'
+import ContentEditableInput from '../ContentEditableInput'
 import ToggleSwitch from '../ToggleSwitch'
 import { IconButton } from '@mui/material'
 import { DeleteOutline } from '@mui/icons-material'
@@ -45,7 +45,7 @@ export function LongAnswerEditable({ question, onChange }: LongAnswerEditablePro
                 />
                 <textarea className='min-h-[120px] w-full resize-y px-4 py-5 rounded-md border-[1px] border-gray-400 focus:border-gray-800 text-gray-400 focus:outline-none' placeholder='Your Answer' value={question.properties["placeholder"]} />
                 <div className='flex items-center justify-end w-full px-4 pt-10 gap-1'>
-                    <ToggleSwitch checked={question.required} onChange={() => handleChange("required", !question.required)}/>
+                    <ToggleSwitch id="longAnswer" checked={question.required} onChange={() => handleChange("required", !question.required)}/>
                     <IconButton className='m-auto'>
                         <DeleteOutline />
                     </IconButton>

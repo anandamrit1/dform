@@ -1,4 +1,4 @@
-import ContentEditableInput from '../ContentEditableInputWithState'
+import ContentEditableInput from '../ContentEditableInput'
 import ToggleSwitch from '../ToggleSwitch'
 import { IconButton, Radio } from '@mui/material'
 import { Add, DeleteOutline } from '@mui/icons-material'
@@ -93,7 +93,7 @@ export function SingleOptionAnswerEditable({ question, onChange }: SingleOptionA
                 
 
                 <div className='flex items-center justify-end w-full px-4 pt-10 gap-1'>
-                    <ToggleSwitch checked={question.required} onChange={() => handleChange("required", !question.required)}/>
+                    <ToggleSwitch id="singleOption" checked={question.required} onChange={() => handleChange("required", !question.required)}/>
                     <IconButton className='m-auto'>
                         <DeleteOutline />
                     </IconButton>

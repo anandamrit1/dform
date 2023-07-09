@@ -7,7 +7,7 @@ import { IconButton } from '@mui/material';
 import { Tooltip } from 'react-bootstrap';
 import { GetDefaultQuestion } from '../../utils/QuestionUtils';
 import AddQuestionModal from '../../components/AddQuestionModal';
-import ContentEditableInput from '../../components/ContentEditableInputWithState';
+import ContentEditableInput from '../../components/ContentEditableInput';
 import { formTitleAtom } from '.';
 
 
@@ -122,16 +122,16 @@ const QuestionsList: React.FC<QuestionsListProps> = () => {
                     {questions.map((question, index) => (
                 <Question key={index} question={question} handleQuestionChange={handleQuestionChange} />
             ))}
-            <p className="m-auto mt-8">
+            <div className="m-auto mt-8">
                 <Tooltip title="Add a question" placement="top">
                     <IconButton onClick={() => setAddQuestionModal(true)}>
                         <AddCircle fontSize="large" className="text-4xl cursor-pointer" />
                     </IconButton>
                 </Tooltip>
-            </p>
-                    <p className="m-auto mt-8">
+            </div>
+                    <div className="m-auto mt-8">
                         Powered by <span className="font-bold cursor-pointer">TaleFlow</span>
-                    </p>
+                    </div>
                 </div>
             
             {addQuestionModal && (
