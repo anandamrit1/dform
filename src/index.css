@@ -22,6 +22,8 @@ input:checked ~ .dot {
 
 input:checked ~ .toggle {
   background-color: rgb(31 41 55);
+}
+
 .grid-cols-custom {
   display: grid;
   grid-template-columns: repeat(6, 1fr);

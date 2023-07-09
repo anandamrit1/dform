@@ -3,6 +3,7 @@ import logo2 from '../Images/logo2.png'
 import logo3 from '../Images/logo3.webp'
 import FormCard from '../components/FormCard';
 import Dashboard_Navbar from '../components/Dashboard_Navbar';
+import { useNavigate } from 'react-router-dom';
 
 export type FormType = {
   title: string;
@@ -13,6 +14,8 @@ export type FormType = {
 function AdminDashboard() {
   const [navbarShadow, setNavbarShadow] = useState(false);
 
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
@@ -35,13 +38,13 @@ function AdminDashboard() {
   };
 
   const arr = [
-    { title: "Title of Form", coverImg: logo3 as string, response: 0 },
-    { title: "Title of Form and other", coverImg: logo3 as string, response: 0 },
-    { title: "Title of Form and other", coverImg: logo3 as string, response: 0 },
-    { title: "Title of Form", coverImg: logo3 as string, response: 0 },
-    { title: "Title of Form and other", coverImg: logo3 as string, response: 0 },
-    { title: "Title of Form and other", coverImg: logo3 as string, response: 0 },
-    { title: "Title of Form and other", coverImg: logo3 as string, response: 0 },
+    { title: "Title of Form", coverImg: logo3 as string, response: 0, id: "form-askfajdnckadnckadc" },
+    { title: "Title of Form and other", coverImg: logo3 as string, response: 0, id: "form-askfajdnckadnckada" },
+    { title: "Title of Form and other", coverImg: logo3 as string, response: 0, id: "form-askfajdnckadnckadv" },
+    { title: "Title of Form", coverImg: logo3 as string, response: 0, id: "form-askfajdnckadnckade" },
+    { title: "Title of Form and other", coverImg: logo3 as string, response: 0, id: "form-askfajdnckadnckadr" },
+    { title: "Title of Form and other", coverImg: logo3 as string, response: 0, id: "form-askfajdnckadnckadk" },
+    { title: "Title of Form and other", coverImg: logo3 as string, response: 0, id: "form-askfajdnckadnckadq" },
   ]
 
   const handleDeleteForm = () => {
@@ -54,8 +57,7 @@ function AdminDashboard() {
       <div className='bg-white w-full h-[110px]'></div>
       <Dashboard_Navbar navbarShadow={navbarShadow} />
       <Comp1 />
-      <div className="grid gap-6 grid-cols-custom items-center">
-
+      <div className="grid gap-y-8 gap-x-8 grid-cols-custom ">
         <div className='h-[302px] w-[250px] bg-white border rounded-3xl shadow-lg hover:opacity-90 transition duration-200 cursor-pointer' onClick={handleAddForm}>
           <div className="flex flex-col items-center justify-center space-y-6 h-full">
             <div className="h-[75px] w-[75px] rounded-[50%] bg-indigo-300 p-[3px]">
@@ -71,7 +73,7 @@ function AdminDashboard() {
         </div>
 
         {arr.map((form, index) => (
-          <FormCard key={index} form={form} onDelete={handleDeleteForm} />
+          <FormCard key={index} form={form} onClick={() => navigate(`/edit/${form.id}`)} onDelete={handleDeleteForm} />
         ))}
 
       </div>

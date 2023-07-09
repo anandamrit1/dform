@@ -4,14 +4,16 @@ export type FormType = {
     title: string;
     coverImg: string;
     response: number;
+    id: string;
 }
 
 type FormCardProps = {
     form: FormType;
     onDelete: () => void;
+    onClick: () => void;
 }
 
-const FormCard = ({ form, onDelete }: FormCardProps) => {
+const FormCard = ({ form, onDelete, onClick}: FormCardProps) => {
 
     const [isLinkCopied, setIsLinkCopied] = useState(false);
     const copyLinkRef = useRef<HTMLDivElement>(null);
@@ -34,18 +36,17 @@ const FormCard = ({ form, onDelete }: FormCardProps) => {
             onDelete();
         }
     };
+
     const handleCopyLink = () => {
         const textToCopy = 'Linkt to the form';
         navigator.clipboard.writeText(textToCopy);
         setIsLinkCopied(true);
         console.log("Link Copied...");
     };
-    const handleOpenForm = () => {
-        console.log("Opening form...");
-    };
+
 
     return (
-        <div className='h-[302px] w-[250px] bg-white border rounded-3xl shadow-lg  hover:opacity-80 transition duration-200' onClick={handleOpenForm}>
+        <div className='h-[302px] w-[250px] bg-white border rounded-3xl shadow-lg  hover:opacity-80 transition duration-200' onClick={onClick}>
             <div className='flex justify-center items-center h-[210px] w-[248px] bg-gradient-to-br from-indigo-400  to-white rounded-t-3xl cursor-pointer'>
                 <img src={form.coverImg} alt="logo3" className='h-24 w-24 rounded-full' />
             </div>
