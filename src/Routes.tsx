@@ -7,11 +7,11 @@ function AppRoutes() {
     <BrowserRouter>
         <Routes>
             <Route 
-                path='/edit/:formId'
+                path='/'
                 Component={CreateForm}
             />
             <Route 
-                path='/'
+                path='/dashboard'
                 Component={AdminDashboard}
             />
         </Routes>
