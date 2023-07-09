@@ -1,9 +1,9 @@
 import { IconButton, Tooltip } from "@mui/material"
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Palette, Share, Visibility } from "@mui/icons-material";
-
-import QuestionsList from "./QuestionList";
 import { atom, useRecoilState } from "recoil";
+import { useState } from "react";
+import DashboardTabs from "./DashboardTabs";
 
 export const formTitleAtom = atom<string>({
     key: 'formTitleAtom',
@@ -12,7 +12,8 @@ export const formTitleAtom = atom<string>({
 
 function CreateForm() {
     const [title, setTitle] = useRecoilState(formTitleAtom);
-
+    const [showThemeSidebar, setShowThemeSidebar] = useState(false);
+    
     return (
         <div className=" h-screen flex flex-col items-center">
             <div className="border-b-2 shadow-[0_4px_24px_rgba(0,0,0,0.1)] w-screen bg-white py-10 flex justify-between">
@@ -32,6 +33,7 @@ function CreateForm() {
                     <IconButton
                         size="medium"
                         aria-label="back"
+                        onClick={() => setShowThemeSidebar(!showThemeSidebar)}
                     >
                         <Palette />
                     </IconButton>
@@ -49,8 +51,8 @@ function CreateForm() {
                     </IconButton>
                 </div>
             </div>
-            <div className="flex-grow overflow-y-auto w-screen py-24">
-                <QuestionsList />
+            <div className="flex-grow flex overflow-y-auto w-screen pb-24">
+                <DashboardTabs />
             </div>
         </div>
     )
