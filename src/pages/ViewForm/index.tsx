@@ -62,7 +62,7 @@ const index = () => {
 
     return (
         <div className="w-full bg-white flex justify-center items-center">
-            <div className="flex flex-col justify-center items-center border shadow-2xl w-full rounded-2xl shadow-indigo-300 p-8 mt-12 max-w-[760px] mb-[150px]">
+            <div className="flex flex-col justify-center items-center border shadow-2xl w-full rounded-2xl shadow-indigo-300 p-8 mt-5 sm:mt-12 max-w-[760px] mb-[75px] md:mb-[150px] mx-5 sm:mx-12">
                 <div className="flex flex-col w-full space-y-5 mb-2 ">
                     <div className="flex flex-row w-full justify-start">
                         <img src={form1.thumbnailUrl} alt="logo3" className='h-20 w-20 rounded-full' />
