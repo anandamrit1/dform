@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react';
 import logo2 from '../Images/logo2.png'
 import logo3 from '../Images/logo3.webp'
 import FormCard from '../components/FormCard';
@@ -10,6 +11,24 @@ export type FormType = {
 }
 
 function AdminDashboard() {
+  const [navbarShadow, setNavbarShadow] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setNavbarShadow(true);
+      } else {
+        setNavbarShadow(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
 
   const handleAddForm = () => {
     console.log("Adding New form...");
@@ -31,8 +50,9 @@ function AdminDashboard() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center">
-      <Dashboard_Navbar />
+    <div className="w-full flex flex-col items-center justify-center" >
+      <div className='bg-white w-full h-[110px]'></div>
+      <Dashboard_Navbar navbarShadow={navbarShadow} />
       <Comp1 />
       <div className="grid gap-6 grid-cols-custom items-center">
 
@@ -50,8 +70,8 @@ function AdminDashboard() {
           </div>
         </div>
 
-        {arr.map((form) => (
-          <FormCard form={form} onDelete={handleDeleteForm} />
+        {arr.map((form, index) => (
+          <FormCard key={index} form={form} onDelete={handleDeleteForm} />
         ))}
 
       </div>

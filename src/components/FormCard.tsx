@@ -45,7 +45,7 @@ const FormCard = ({ form, onDelete }: FormCardProps) => {
     };
 
     return (
-        <div className='h-[302px] w-[250px] bg-white border rounded-3xl shadow-lg  hover:opacity-90 transition duration-200' onClick={handleOpenForm}>
+        <div className='h-[302px] w-[250px] bg-white border rounded-3xl shadow-lg  hover:opacity-80 transition duration-200' onClick={handleOpenForm}>
             <div className='flex justify-center items-center h-[210px] w-[248px] bg-gradient-to-br from-indigo-400  to-white rounded-t-3xl cursor-pointer'>
                 <img src={form.coverImg} alt="logo3" className='h-24 w-24 rounded-full' />
             </div>
