@@ -150,13 +150,13 @@ function AccessGates({ settings, onChange }: SubSettingsType) {
           <ToggleSwitch id="accessGateNFt" label={null} checked={!!settings.accessGateNft} onChange={() => handleChange("accessGateNft")} />
         </div>
         {
-          !!settings.accessGateNft && <div className="flex justify-between">
-            <input type="text" placeholder="NFT Address" className="border-[1px] border-black rounded-md p-2 w-[200px]" />
-            <input type="text" placeholder="NFT Token ID" className="border-[1px] border-black rounded-md p-2 w-[200px]" />
-            <button className="bg-black hover:bg-gray-900 text-white font-bold h-fit py-2 px-4 rounded-md">
+          !!settings.accessGateNft && <form className="flex justify-between">
+            <input required type="text" placeholder="NFT Address" className="border-[1px] border-black focus:outline-none rounded-md p-2 w-[200px]" />
+            <input required type="text" placeholder="NFT Token ID" className="border-[1px] border-black focus:outline-none rounded-md p-2 w-[200px]" />
+            <button type="submit" className="bg-black hover:bg-gray-900 text-white font-bold h-fit py-2 px-4 rounded-md">
               Save
             </button>
-          </div>
+          </form>
         }
         <div className="flex justify-between">
           <p>Follow twitter account</p>
