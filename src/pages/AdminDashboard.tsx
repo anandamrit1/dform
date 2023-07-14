@@ -8,11 +8,13 @@ export type FormType = {
   title: string;
   coverImg: string;
   response: number;
+  id: string;
 }
 
 function AdminDashboard() {
   const [navbarShadow, setNavbarShadow] = useState(false);
-
+  const [forms, setForms] = useState<FormType[]>();
+  const user = "User";
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -31,7 +33,23 @@ function AdminDashboard() {
     };
   }, []);
 
-
+  useEffect(() => {
+    // Make an API call to get all forms
+    const fetchForms = async () => {
+      const res = await fetch('https://mocki.io/v1/c1d84452-feef-4229-b123-c393e3ab7a5d', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = await res.json();
+      setForms(data);
+    };
+    // Update the state
+    if (user) {
+      fetchForms();
+    }
+  }, [user]);
   const handleAddForm = () => {
     console.log("Adding New form...");
   };
@@ -41,6 +59,10 @@ function AdminDashboard() {
     // Perform delete operation (update state or make an API call)
     console.log("Deleting form...");
   };
+
+  if (!forms) {
+    return <>Loading...</>
+  }
 
   return (
     <div className="w-full flex flex-col items-center justify-center" >
@@ -62,7 +84,7 @@ function AdminDashboard() {
           </div>
         </div>
 
-        {arr.map((form, index) => (
+        {forms.map((form, index) => (
           <FormCard key={index} form={form} onClick={() => navigate(`/edit/${form.id}`)} onDelete={handleDeleteForm} />
         ))}
 
@@ -81,8 +103,8 @@ const Comp1 = () => {
         DeForm's Workspace
       </div>
       <div className="flex -space-x-3 hover:opacity-80 cursor-pointer justify-center items-center">
-        <div className="bg-tertiary rounded-full w-12 h-12 flex items-center justify-center font-thin">
-          <div className="text-primary h-[24px] w-[24px]"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clipRule="evenodd"></path></svg></div>
+        <div className="bg-gray-200 rounded-full w-12 h-12 flex items-center justify-center font-thin">
+          <div className="h-[24px] w-[24px]"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd"></path></svg></div>
         </div>
         <div className='absolute left-0 right-0 opacity-0 sm:static sm:opacity-100 '>
           <div className="relative group">

@@ -6,7 +6,6 @@ import Box from '@mui/material/Box';
 import QuestionsList from './QuestionList';
 import Settings from './Settings';
 import Responses from './Responses';
-import Responses from './Responses';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -65,7 +64,6 @@ export default function DashboardTabs() {
                 <QuestionsList />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-                <Responses />
                 <Responses />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
