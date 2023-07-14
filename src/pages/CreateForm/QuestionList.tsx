@@ -63,6 +63,36 @@ export const questionListAtom = atom<QuestionType[]>({
                 "placeholder": "Your Email"
             },
             "formFieldId": "12345"
+        },
+        {
+            "title": "Enter Link here!",
+            "description": "Please enter your link",
+            "type": "link",
+            "required": false,
+            "properties": {
+                "placeholder": "Your link"
+            },
+            "formFieldId": "123456"
+        },
+        {
+            "title": "Enter Number here!",
+            "description": "Enter Number",
+            "type": "number",
+            "required": false,
+            "properties": {
+                "placeholder": "Your Number"
+            },
+            "formFieldId": "123457"
+        },
+        {
+            "title": "Enter Date here!",
+            "description": "Enter date",
+            "type": "date",
+            "required": false,
+            "properties": {
+                "placeholder": "Your date"
+            },
+            "formFieldId": "123458"
         }
     ]
 });

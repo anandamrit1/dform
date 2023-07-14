@@ -1,5 +1,8 @@
 import { CheckBox, Email, FileUpload, RadioButtonChecked, ShortText, AccountBalanceWallet, Twitter } from '@mui/icons-material';
 import NotesIcon from '@mui/icons-material/Notes';
+import { Link } from '@mui/icons-material';
+import { FaHashtag } from 'react-icons/fa';
+
 
 export type AddQuestionModalProps = {
     handleClose: () => void,
@@ -32,6 +35,21 @@ function AddQuestionModal({ handleAddQuestion }: AddQuestionModalProps) {
             type: 'email',
             label: <><span className='mr-2'><Email /></span>Email</>,
             description: 'For email',
+        },
+        {
+            type: 'link',
+            label: <><span className='mr-2'><Link /></span>Link</>,
+            description: 'For link',
+        },
+        {
+            type: 'number',
+            label: <><span className='mr-2 '><FaHashtag className="inline-block"  /></span>Number</>,
+            description: 'For Number',
+        },
+        {
+            type: 'date',
+            label: <><span className='mr-2 '><Date /></span>Date</>,
+            description: 'For Date',
         },
         {
             type: 'upload',

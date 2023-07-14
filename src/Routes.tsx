@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import CreateForm from './pages/CreateForm'
+import ViewForm from './pages/ViewForm'
 import AdminDashboard from './pages/AdminDashboard'
 
 function AppRoutes() {
@@ -17,6 +18,10 @@ function AppRoutes() {
             <Route
                 path='dashboard'
                 Component={AdminDashboard}
+            />
+            <Route 
+                path='/viewform'
+                Component={ViewForm}
             />
         </Routes>
     </BrowserRouter>

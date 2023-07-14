@@ -53,6 +53,39 @@ export const DEFAULT_EMAIL_ANSWER_QUESTION = {
     "formFieldId": "12345"
 }
 
+export const DEFAULT_LINK_ANSWER_QUESTION = {
+    "title": "What is your link?",
+    "description": "Please enter your link",
+    "type": "link",
+    "required": false,
+    "properties": {
+        "placeholder": "Your link"
+    },
+    "formFieldId": "123456"
+}
+
+export const DEFAULT_NUMBER_ANSWER_QUESTION = {
+    "title": "What is your number?",
+    "description": "Please enter your number",
+    "type": "number",
+    "required": false,
+    "properties": {
+        "placeholder": "Your number"
+    },
+    "formFieldId": "123457"
+}
+
+export const DEFAULT_DATE_ANSWER_QUESTION = {
+    "title": "What is your date?",
+    "description": "Please enter your date",
+    "type": "date",
+    "required": false,
+    "properties": {
+        "placeholder": "Your date"
+    },
+    "formFieldId": "123458"
+}
+
 export const DEFAULT_FILE_UPLOAD_ANSWER_QUESTION = {
     "title": "Type your question here",
     "description": "Add your description here",

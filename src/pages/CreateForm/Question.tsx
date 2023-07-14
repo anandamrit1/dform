@@ -5,6 +5,9 @@ import { LongAnswerEditable, LongAnswerComponent } from '../../components/questi
 import { SingleOptionAnswerComponent, SingleOptionAnswerEditable } from '../../components/questions/SingleOptionAnswer';
 import { MultipleOptionAnswerComponent, MultipleOptionAnswerEditable } from '../../components/questions/MultipleOptionAnswer';
 import { EmailAnswerComponent, EmailAnswerEditable } from '../../components/questions/EmailAnswer';
+import { LinkAnswerComponent, LinkAnswerEditable } from '../../components/questions/LinkAnswer';
+import { NumberAnswerComponent, NumberAnswerEditable } from '../../components/questions/NumberAnswer';
+import { DateAnswerComponent, DateAnswerEditable } from '../../components/questions/DateAnswer';
 import { FileUploadComponent, FileUploadEditable } from '../../components/questions/FileUploadAnswer';
 import { WalletConnectComponent, WalletConnectEditable } from '../../components/questions/WalletConnect';
 import { TwitterComponent, TwitterEditable } from '../../components/questions/Twitter';
@@ -81,6 +84,33 @@ const Question: React.FC<QuestionProps> = ({ question, handleQuestionChange }) =
                     {isEditing ?
                         <EmailAnswerEditable onChange={handleQuestionChange} question={question} />
                         : <EmailAnswerComponent question={question} isPreview />
+                    }
+                </div>
+            </>
+        case 'link':
+            return <>
+                <div className='w-full' ref={wrapperRef} onClick={onFocus} >
+                    {isEditing ?
+                        <LinkAnswerEditable onChange={handleQuestionChange} question={question} />
+                        : <LinkAnswerComponent question={question} isPreview />
+                    }
+                </div>
+            </>
+        case 'number':
+            return <>
+                <div className='w-full' ref={wrapperRef} onClick={onFocus} >
+                    {isEditing ?
+                        <NumberAnswerEditable onChange={handleQuestionChange} question={question} />
+                        : <NumberAnswerComponent question={question} isPreview />
+                    }
+                </div>
+            </>
+        case 'date':
+            return <>
+                <div className='w-full' ref={wrapperRef} onClick={onFocus} >
+                    {isEditing ?
+                        <DateAnswerEditable onChange={handleQuestionChange} question={question} />
+                        : <DateAnswerComponent question={question} isPreview />
                     }
                 </div>
             </>
