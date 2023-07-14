@@ -4,23 +4,33 @@ import ViewLongAnwer from './viewquestions/ViewLongAnwer';
 import ViewMultipleOptionAnswer from './viewquestions/ViewMultipleOptionAnswer';
 import ViewSingleOptionAnswer from './viewquestions/ViewSingleOptionAnswer';
 import ViewEmailAnswer from './viewquestions/ViewEmailAnswer';
+import ViewLinkAnswer from './viewquestions/ViewLinkAnswer';
+import ViewNumberAnswer from './viewquestions/ViewNumberAnswer';
+import ViewDateAnswer from './viewquestions/ViewDateAnswer';
 
 interface QuestionProps {
     question: QuestionType
+    themeColor: string
 }
 
-const ViewQuestion: React.FC<QuestionProps> = ({ question }) => {
+const ViewQuestion: React.FC<QuestionProps> = ({ question, themeColor }) => {
     switch (question.type) {
         case 'shortAnswer':
-            return <ViewShortAnswer question={question} />
+            return <ViewShortAnswer question={question} themeColor={themeColor} />
         case 'longAnswer':
-            return <ViewLongAnwer question={question} />
+            return <ViewLongAnwer question={question} themeColor={themeColor} />
         case 'singleOption':
-            return <ViewSingleOptionAnswer question={question} />
+            return <ViewSingleOptionAnswer question={question} themeColor={themeColor} />
         case 'multipleOption':
-            return <ViewMultipleOptionAnswer question={question} />
+            return <ViewMultipleOptionAnswer question={question} themeColor={themeColor} />
         case 'email':
-            return <ViewEmailAnswer question={question} />
+            return <ViewEmailAnswer question={question} themeColor={themeColor} />
+        case 'link':
+            return <ViewLinkAnswer question={question}themeColor={themeColor}  />
+        case 'number':
+            return <ViewNumberAnswer question={question} themeColor={themeColor} />
+        case 'date':
+            return <ViewDateAnswer question={question} themeColor={themeColor} />
         default:
             return <></>
     }

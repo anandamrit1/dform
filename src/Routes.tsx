@@ -15,6 +15,10 @@ function AppRoutes() {
                 path='/'
                 Component={AdminDashboard}
             />
+            <Route
+                path='dashboard'
+                Component={AdminDashboard}
+            />
             <Route 
                 path='/viewform'
                 Component={ViewForm}

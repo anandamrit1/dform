@@ -1,12 +1,16 @@
 import { QuestionType } from '../../../types/Form'
-import {Field, ErrorMessage } from 'formik';
+// import { useFormikContext} from 'formik';
+import {  Field, ErrorMessage } from 'formik';
 
+// interface FormValues {
+//     [key: string]: any;
+// }
 
+const ViewLinkAnswer = ({ question, themeColor }: { question: QuestionType; themeColor: string }) => {
 
-const ViewSingleSelect = ({ question, themeColor }: { question: QuestionType; themeColor: string }) => {
     const required = question.required;
-    const arr = question.properties.options;
-
+    // const { errors, touched} = useFormikContext<FormValues>();
+    // const hasError = errors[question.formFieldId] && touched[question.formFieldId];
 
     return (
         <div className="flex flex-col w-full my-6 justify-center space-y-2">
@@ -15,16 +19,7 @@ const ViewSingleSelect = ({ question, themeColor }: { question: QuestionType; th
                 {required && <span className="text-xl text-red-500"> *</span>}
             </div>
             <div className='text-gray-400 pb-4' >{question.description}</div>
-            <div className='flex flex-col space-y-5 text-sm w-full' >
-                {arr.map((option: string, index: number) => (
-                    <div className='w-full'>
-                        <label key={index} className='flex justify-start items-center space-x-2 '>
-                            <Field type="radio" name={question.formFieldId} value={option} className='h-6 w-6 cursor-pointer' />
-                            <div className='cursor-pointer' > {option} </div>
-                        </label>
-                    </div>
-                ))}
-            </div>
+            <Field name={question.formFieldId} type="link" placeholder={question.properties.placeholder} className={`border border-gray-400 focus:border-${themeColor}-500 p-5 rounded-lg outline-none transition duration-200`} />
             <div className="flex justify-start w-full">
                 <ErrorMessage name={question.formFieldId}>
                     {(msg: string) => (
@@ -38,4 +33,4 @@ const ViewSingleSelect = ({ question, themeColor }: { question: QuestionType; th
     )
 }
 
-export default ViewSingleSelect
+export default ViewLinkAnswer

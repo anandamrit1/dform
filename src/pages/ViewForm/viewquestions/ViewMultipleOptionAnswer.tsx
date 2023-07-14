@@ -2,7 +2,7 @@ import { QuestionType } from '../../../types/Form'
 import { Field, ErrorMessage } from 'formik';
 
 
-const ViewMultiSelect = ({ question }: { question: QuestionType }) => {
+const ViewMultiSelect = ({ question, themeColor }: { question: QuestionType; themeColor: string }) => {
 
     const required = question.required;
     const arr = question.properties.options;
@@ -17,7 +17,7 @@ const ViewMultiSelect = ({ question }: { question: QuestionType }) => {
                 {arr.map((option: string, index: number) => (
                     <div key={index} className='w-full'>
                         <label className="flex justify-start items-center space-x-2">
-                            <Field type="checkbox" name={question.formFieldId} value={option} className="h-6 w-6 cursor-pointer" />
+                            <Field type="checkbox" name={question.formFieldId} value={option} className="h-5 w-5 cursor-pointer" />
                             <div className="cursor-pointer">{option}</div>
                         </label>
                     </div>

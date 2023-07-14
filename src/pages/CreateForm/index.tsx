@@ -4,6 +4,8 @@ import { Palette, Share, Visibility } from "@mui/icons-material";
 import { atom, useRecoilState } from "recoil";
 import { useState } from "react";
 import DashboardTabs from "./DashboardTabs";
+import ShareFormModal from "../../components/ShareFormModal";
+import { useNavigate } from "react-router-dom";
 
 export const formTitleAtom = atom<string>({
     key: 'formTitleAtom',
@@ -13,8 +15,12 @@ export const formTitleAtom = atom<string>({
 function CreateForm() {
     const [title, setTitle] = useRecoilState(formTitleAtom);
     const [showThemeSidebar, setShowThemeSidebar] = useState(false);
-    
+    const [showShareModal, setShowShareModal] = useState(false);
+
+    const navigate = useNavigate();
+
     return (
+        <>
         <div className=" h-screen flex flex-col items-center">
             <div className="border-b-2 shadow-[0_4px_24px_rgba(0,0,0,0.1)] w-screen bg-white py-10 flex justify-between">
                 <div className="flex gap-6 px-8">
@@ -22,6 +28,7 @@ function CreateForm() {
                         <IconButton
                             size="medium"
                             aria-label="back"
+                            onClick={() => navigate('/dashboard')}
                         >
                             <ArrowBackIosIcon />
                         </IconButton>
@@ -46,6 +53,7 @@ function CreateForm() {
                     <IconButton
                         size="medium"
                         aria-label="back"
+                        onClick={() => setShowShareModal(true)}
                     >
                         <Share />
                     </IconButton>
@@ -55,6 +63,21 @@ function CreateForm() {
                 <DashboardTabs />
             </div>
         </div>
+        {showShareModal && (
+                <div>
+                    <div
+                        onClick={() => setShowShareModal(false)}
+                        className="absolute top-0 left-0 w-screen h-screen bg-gray-600 opacity-50"
+                    ></div>
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <ShareFormModal
+                            url={`https://taleflow.vercel.app/form/${window.location.pathname.split('/')[2]}`}
+                            onClose={() => setShowShareModal(false)}
+                        />
+                    </div>
+                </div>
+            )}
+        </>
     )
 }
 

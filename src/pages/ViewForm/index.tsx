@@ -18,7 +18,7 @@ const index = () => {
             "title": "What is your name?",
             "description": "Please enter your full name",
             "type": "shortAnswer",
-            "required": true,
+            "required": false,
             "properties": {
                 "placeholder": "Your Answer"
             },
@@ -63,6 +63,36 @@ const index = () => {
                 "placeholder": "Your Email"
             },
             "formFieldId": "12345"
+        },
+        {
+            "title": "Enter Link here!",
+            "description": "Please enter your link",
+            "type": "link",
+            "required": false,
+            "properties": {
+                "placeholder": "Your link"
+            },
+            "formFieldId": "123456"
+        },
+        {
+            "title": "Enter Number here!",
+            "description": "Enter Number",
+            "type": "number",
+            "required": false,
+            "properties": {
+                "placeholder": "Your Number"
+            },
+            "formFieldId": "123457"
+        },
+        {
+            "title": "Enter Date here!",
+            "description": "Enter date",
+            "type": "date",
+            "required": false,
+            "properties": {
+                "placeholder": "Your date"
+            },
+            "formFieldId": "123458"
         }
     ];
 
@@ -97,6 +127,21 @@ const index = () => {
                         ? yupSchema = Yup.string().required('Requied').email('Must be a valid email address')
                         : yupSchema = Yup.string().email('Must be a valid email address')
                 }
+                else if (element.type === 'link') {
+                    element.required
+                        ? yupSchema = Yup.string().required('Requied').url('Must be a valid URL')
+                        : yupSchema = Yup.string().url('Must be a valid URL')
+                }
+                else if (element.type === 'number') {
+                    element.required
+                        ? yupSchema = Yup.number().required('Requied')
+                        : yupSchema = Yup.number().nullable().typeError('Invalid Number')
+                }
+                else if (element.type === 'date') {
+                    element.required
+                        ? yupSchema = Yup.date().required('Date is required').typeError('Invalid date')
+                        : yupSchema = Yup.date().nullable().typeError('Invalid date')
+                }
                 else {
                     yupSchema = Yup.string();
                 }
@@ -114,16 +159,16 @@ const index = () => {
         console.log(values);
     };
 
-    const form1 = { thumbnailUrl: logo3, backgroundColor: "", backgroundUrl: null, font: "", questions: arr, title: "Testing Form" };
+    const form1 = { thumbnailUrl: logo3, backgroundColor: "red", backgroundUrl: null, font: "", questions: arr, title: "Testing Form"};
     return (
         <div className="w-full bg-white flex justify-center items-center">
-            <div className=" fixed w-[3000px] h-2/3 -top-10 -rotate-12" 
+            <div className=" fixed w-[3000px] h-2/3 -top-10 -rotate-12 opacity-30" 
             style={{ 
-                background: 'radial-gradient(100% 50% at 50% 50%, #FF5E5D70 0%, #FF5E5D00 100%)',
+                background: `radial-gradient(100% 50% at 50% 50%, ${form1.backgroundColor} 0%, #ffffff 100%)`,
             }} 
             ></div>
 
-            <div className="flex flex-col z-10 bg-white justify-center items-center border shadow-2xl w-full rounded-2xl shadow-indigo-00 p-8 mt-5 sm:mt-12 max-w-[760px] mb-[75px] md:mb-[150px] mx-5 sm:mx-12">
+            <div className={`flex flex-col z-10 bg-white justify-center items-center border shadow-2xl shadow-${form1.backgroundColor}-300 w-full rounded-2xl shadow-indigo-00 p-8 mt-5 sm:mt-12 max-w-[760px] mb-[75px] md:mb-[150px] mx-5 sm:mx-12`}>
                 <div className="flex flex-col w-full space-y-5 mb-2 ">
                     <div className="flex flex-row w-full justify-start">
                         <img src={form1.thumbnailUrl} alt="logo3" className='h-20 w-20 rounded-full' />
@@ -133,13 +178,13 @@ const index = () => {
                     </div>
                 </div>
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} >
-                    {({ isValid, dirty }) => (
+                    {({ isValid, dirty}) => (
                         <Form className='w-full'>
                             {arr.map((question, index) => (
-                                <ViewQuestion key={index} question={question} />
+                                <ViewQuestion key={index} question={question} themeColor={form1.backgroundColor} />
                             ))}
                             <div className="flex w-full justify-end">
-                                <button type="submit" disabled={!isValid || !dirty} className={`bg-black text-white flex items-center gap-2 p-2.5 rounded-xl font-bold px-6 ${(!isValid || !dirty) ? "opacity-60" : "opacity-100"} transition duration-100 my-4 mb-10`}>
+                                <button type="submit" disabled={!isValid || !dirty} className={`bg-${form1.backgroundColor}-600 text-white flex items-center gap-2 p-2.5 rounded-xl font-bold px-6 ${(!isValid || !dirty) ? "opacity-60" : "opacity-100"} transition duration-100 my-4 mb-10`}>
                                     Submit
                                     <RiSendPlane2Line className="text-white" />
                                 </button>

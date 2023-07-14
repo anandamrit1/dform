@@ -46,7 +46,6 @@ export default function DashboardTabs() {
     const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
-
     return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '50%', margin: 'auto' }}>
@@ -56,11 +55,16 @@ export default function DashboardTabs() {
                     <Tab label="Settings" {...a11yProps(2)} />
                 </Tabs>
             </Box>
+            <div className=" fixed w-[10000px] h-2/3 -top-80 -rotate-6 -left-96 opacity-30 -z-40" 
+            style={{ 
+                background: `radial-gradient(100% 50% at 50% 50%, ${"red"} 0%, #ffffff 100%)`,
+            }} 
+            ></div>
             <CustomTabPanel value={value} index={0}>
                 <QuestionsList />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-                    <Responses/>
+                <Responses />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
                 <Settings />
