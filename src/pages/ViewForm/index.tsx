@@ -5,186 +5,131 @@ import { RiSendPlane2Line } from 'react-icons/ri';
 // import { Form } from '../../types/Form';
 // import { QuestionType } from '../../../types/Form'
 import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
+import { useEffect, useState } from 'react';
+import * as fcl from '@onflow/fcl';
+import { QuestionType } from '../../types/Form';
+import { mockForm, mockQuestions } from '../../utils/constants';
+import AccesGate from './AccesGate';
+import { QuestionsValidationSchema } from '../../utils/QuestionValidationSchema';
 
 interface FormValues {
     [key: string]: string;
 }
 
+export type verificationStatus = "VERIFIED" | "REJECTED" | "LOADING" | "NOT_CONNECTED"
+
+export type AccessGateNft = {
+    address: string;
+};
+
+export type AccessGateTwitter = {
+    username: string
+}
+
+type FormData = {
+    thumbnailUrl: string;
+    backgroundColor: string;
+    backgroundUrl: string | null;
+    font: string;
+    title: string;
+    accessGateNft?: AccessGateNft;
+    accessGateTwitter?: AccessGateTwitter
+};
+
+
 const index = () => {
+    const [user, setUser] = useState<{ loggedIn: boolean, addr?: string }>({ loggedIn: false })
+    const [form, setForm] = useState<FormData | null>(null)
+    const [questions, setQuestions] = useState<QuestionType[] | undefined>([])
+    const [verified, setVerified] = useState<verificationStatus>("NOT_CONNECTED")
 
-    const arr = [
-        {
-            "title": "What is your name?",
-            "description": "Please enter your full name",
-            "type": "shortAnswer",
-            "required": false,
-            "properties": {
-                "placeholder": "Your Answer"
-            },
-            "formFieldId": "121"
-        },
-        {
-            "title": "What do you study?",
-            "description": "Please add details about your course",
-            "type": "longAnswer",
-            "required": false,
-            "properties": {
-                "placeholder": "Your Answer"
-            },
-            "formFieldId": "123"
-        },
-        {
-            "title": "What is your name?",
-            "description": "Please enter your full name",
-            "type": "singleOption",
-            "required": false,
-            "properties": {
-                "options": ["Option 1", "Option 2", "Option 3"]
-            },
-            "formFieldId": "singleOption"
-        },
-        {
-            "title": "What is your name?",
-            "description": "Please enter your full name",
-            "type": "multipleOption",
-            "required": false,
-            "properties": {
-                "options": ["Option 1", "Option 2", "Option 3"]
-            },
-            "formFieldId": "1234"
-        },
-        {
-            "title": "What is your email?",
-            "description": "Please enter your email",
-            "type": "email",
-            "required": false,
-            "properties": {
-                "placeholder": "Your Email"
-            },
-            "formFieldId": "12345"
-        },
-        {
-            "title": "Enter Link here!",
-            "description": "Please enter your link",
-            "type": "link",
-            "required": false,
-            "properties": {
-                "placeholder": "Your link"
-            },
-            "formFieldId": "123456"
-        },
-        {
-            "title": "Enter Number here!",
-            "description": "Enter Number",
-            "type": "number",
-            "required": false,
-            "properties": {
-                "placeholder": "Your Number"
-            },
-            "formFieldId": "123457"
-        },
-        {
-            "title": "Enter Date here!",
-            "description": "Enter date",
-            "type": "date",
-            "required": false,
-            "properties": {
-                "placeholder": "Your date"
-            },
-            "formFieldId": "123458"
+    const searchParams = new URLSearchParams(window.location.search);
+    const formId = searchParams.get('viewform');
+
+    useEffect(() => {
+        const fetchForm = async () => {
+            console.log(formId);
+            // const res = await fetch(`https://flowform.free.beeceptor.com/form`, {
+            //     method: 'GET',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     }
+            // });
+            // console.log(res)
+            // const data = await res.json();
+            setForm(mockForm);
+        };
+        fetchForm();
+    }, [formId]);
+
+    console.log(user)
+    useEffect(() => {
+        if (form?.accessGateNft?.address) {
+            console.log("NFT")
+            fcl.currentUser.subscribe(setUser)
+        } else if (form) {
+            setUser({ loggedIn: true })
+            setVerified("VERIFIED")
         }
-    ];
+    }, [form])
 
+    useEffect(() => {
+        const fetchQuestions = async () => {
+            // const res = await fetch(`https://flowform.free.beeceptor.com/questions`, {
+            //     method: 'GET',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     }
+            // });
+            // const data = await res.json();
+            setQuestions(mockQuestions);
+        };
+        if (form && user?.loggedIn) {
+            fetchQuestions();
+        }
+    }, [user, form])
 
-    const validationSchema = Yup.object().shape(
-        Object.fromEntries(
-            arr.map((element) => {
-                let yupSchema;
+    const validationSchema = QuestionsValidationSchema(questions)
 
-                if (element.type === 'shortAnswer') {
-                    element.required
-                        ? yupSchema = Yup.string().required('Required').max(150, 'Maximum 150 characters allowed')
-                        : yupSchema = Yup.string().max(150, 'Maximum 150 characters allowed')
-                }
-                else if (element.type === 'longAnswer') {
-                    element.required
-                        ? yupSchema = Yup.string().required('Required').max(1000, 'Maximum 1000 characters allowed')
-                        : yupSchema = Yup.string().max(1000, 'Maximum 1000 characters allowed')
-                }
-                else if (element.type === 'singleOption') {
-                    element.required
-                        ? yupSchema = Yup.string().required('Required')
-                        : yupSchema = Yup.string()
-                }
-                else if (element.type === 'multipleOption') {
-                    element.required
-                        ? yupSchema = Yup.array().min(1, 'Please select at least one option').required('Required')
-                        : yupSchema = Yup.array()
-                }
-                else if (element.type === 'email') {
-                    element.required
-                        ? yupSchema = Yup.string().required('Requied').email('Must be a valid email address')
-                        : yupSchema = Yup.string().email('Must be a valid email address')
-                }
-                else if (element.type === 'link') {
-                    element.required
-                        ? yupSchema = Yup.string().required('Requied').url('Must be a valid URL')
-                        : yupSchema = Yup.string().url('Must be a valid URL')
-                }
-                else if (element.type === 'number') {
-                    element.required
-                        ? yupSchema = Yup.number().required('Requied')
-                        : yupSchema = Yup.number().nullable().typeError('Invalid Number')
-                }
-                else if (element.type === 'date') {
-                    element.required
-                        ? yupSchema = Yup.date().required('Date is required').typeError('Invalid date')
-                        : yupSchema = Yup.date().nullable().typeError('Invalid date')
-                }
-                else {
-                    yupSchema = Yup.string();
-                }
-                return [element.formFieldId, yupSchema];
-            })
-        )
-    );
-
-    const initialValues: FormValues = Object.fromEntries(
-        arr.map((element) => [element.formFieldId, ''])
-    );
+    const initialValues: FormValues = questions ? Object.fromEntries(
+        questions.map((element) => [element.formFieldId, ''])
+    ) : {}
 
     const onSubmit = (values: FormValues) => {
         // Handle form submission here
         console.log(values);
     };
 
-    const form1 = { thumbnailUrl: logo3, backgroundColor: "red", backgroundUrl: null, font: "", questions: arr, title: "Testing Form"};
+    if (!form) return <>Loading</>
+    if (!user.loggedIn || (user.loggedIn && verified != "VERIFIED")) return <AccesGate verified={verified} setVerified={setVerified} user={user} accessGateNft={form.accessGateNft} />
+
+    if (!questions) return <>Loading</>
+
     return (
         <div className="w-full bg-white flex justify-center items-center">
-            <div className=" fixed w-[3000px] h-2/3 -top-10 -rotate-12 opacity-30" 
-            style={{ 
-                background: `radial-gradient(100% 50% at 50% 50%, ${form1.backgroundColor} 0%, #ffffff 100%)`,
-            }} 
+            <div className=" fixed w-[3000px] h-2/3 -top-10 -rotate-12 opacity-30"
+                style={{
+                    background: `radial-gradient(100% 50% at 50% 50%, ${form?.backgroundColor} 0%, #ffffff 100%)`,
+                }}
             ></div>
 
-            <div className={`flex flex-col z-10 bg-white justify-center items-center border shadow-2xl shadow-${form1.backgroundColor}-300 w-full rounded-2xl shadow-indigo-00 p-8 mt-5 sm:mt-12 max-w-[760px] mb-[75px] md:mb-[150px] mx-5 sm:mx-12`}>
+            <div className={`flex flex-col z-10 bg-white justify-center items-center border shadow-2xl shadow-${form?.backgroundColor}-300 w-full rounded-2xl shadow-indigo-00 p-8 mt-5 sm:mt-12 max-w-[760px] mb-[75px] md:mb-[150px] mx-5 sm:mx-12`}>
                 <div className="flex flex-col w-full space-y-5 mb-2 ">
                     <div className="flex flex-row w-full justify-start">
-                        <img src={form1.thumbnailUrl} alt="logo3" className='h-20 w-20 rounded-full' />
+                        <img src={form?.thumbnailUrl} alt="logo3" className='h-20 w-20 rounded-full' />
                     </div>
                     <div className="flex flex-row w-full text-3xl font-bold ">
-                        {form1.title}
+                        {form?.title}
                     </div>
                 </div>
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} >
-                    {({ isValid, dirty}) => (
+                    {({ isValid, dirty }) => (
                         <Form className='w-full'>
-                            {arr.map((question, index) => (
-                                <ViewQuestion key={index} question={question} themeColor={form1.backgroundColor} />
+                            {questions.map((question, index) => (
+                                <ViewQuestion key={index} question={question} themeColor={form?.backgroundColor ?? "green"} />
                             ))}
                             <div className="flex w-full justify-end">
-                                <button type="submit" disabled={!isValid || !dirty} className={`bg-${form1.backgroundColor}-600 text-white flex items-center gap-2 p-2.5 rounded-xl font-bold px-6 ${(!isValid || !dirty) ? "opacity-60" : "opacity-100"} transition duration-100 my-4 mb-10`}>
+                                <button type="submit" disabled={!isValid || !dirty} className={`bg-${form?.backgroundColor}-600 text-white flex items-center gap-2 p-2.5 rounded-xl font-bold px-6 ${(!isValid || !dirty) ? "opacity-60" : "opacity-100"} transition duration-100 my-4 mb-10`}>
                                     Submit
                                     <RiSendPlane2Line className="text-white" />
                                 </button>
