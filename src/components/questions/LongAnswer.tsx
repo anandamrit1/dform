@@ -43,7 +43,7 @@ export function LongAnswerEditable({ question, onChange }: LongAnswerEditablePro
                     onChange={(value) => handleChange("description", value)}
                     className='text-sm text-gray-400 bg-gray-100'
                 />
-                <textarea className='min-h-[120px] w-full resize-y px-4 py-5 rounded-md border-[1px] border-gray-400 focus:border-gray-800 text-gray-400 focus:outline-none' placeholder='Your Answer' value={question.properties["placeholder"]} />
+                <textarea className='min-h-[120px] w-full resize-y px-4 py-5 rounded-md border-[1px] border-gray-400 focus:border-gray-800 text-gray-400 focus:outline-none' placeholder='Your Answer' onChange={(e) => handleChange("properties", {"placeholder": e.target.value})} value={question.properties["placeholder"]} />
                 <div className='flex items-center justify-end w-full px-4 pt-10 gap-1'>
                     <ToggleSwitch id="longAnswer" checked={question.required} onChange={() => handleChange("required", !question.required)}/>
                     <IconButton className='m-auto'>
