@@ -115,3 +115,108 @@ export const DEFAULT_TWITTER_ANSWER_QUESTION = {
     },
     "formFieldId": "1234538545"
 }
+
+export const mockForm = {
+    "thumbnailUrl": "logo3",
+    "backgroundColor": "red",
+    "backgroundUrl": null,
+    "font": "",
+    "title": "Testing Form",
+    "accessGateNft": {
+        "address": "12344"
+    }
+}
+
+export const mockQuestions = [
+    {
+        "title": "What is your name?",
+        "description": "Please enter your full name",
+        "type": "shortAnswer",
+        "required": false,
+        "properties": {
+            "placeholder": "Your Answer"
+        },
+        "formFieldId": "121"
+    },
+    {
+        "title": "What do you study?",
+        "description": "Please add details about your course",
+        "type": "longAnswer",
+        "required": false,
+        "properties": {
+            "placeholder": "Your Answer"
+        },
+        "formFieldId": "123"
+    },
+    {
+        "title": "What is your name?",
+        "description": "Please enter your full name",
+        "type": "singleOption",
+        "required": false,
+        "properties": {
+            "options": ["Option 1", "Option 2", "Option 3"]
+        },
+        "formFieldId": "singleOption"
+    },
+    {
+        "title": "What is your name?",
+        "description": "Please enter your full name",
+        "type": "multipleOption",
+        "required": false,
+        "properties": {
+            "options": ["Option 1", "Option 2", "Option 3"]
+        },
+        "formFieldId": "1234"
+    },
+    {
+        "title": "What is your email?",
+        "description": "Please enter your email",
+        "type": "email",
+        "required": false,
+        "properties": {
+            "placeholder": "Your Email"
+        },
+        "formFieldId": "12345"
+    },
+    {
+        "title": "Enter Link here!",
+        "description": "Please enter your link",
+        "type": "link",
+        "required": false,
+        "properties": {
+            "placeholder": "Your link"
+        },
+        "formFieldId": "123456"
+    },
+    {
+        "title": "Enter Number here!",
+        "description": "Enter Number",
+        "type": "number",
+        "required": false,
+        "properties": {
+            "placeholder": "Your Number"
+        },
+        "formFieldId": "123457"
+    },
+    {
+        "title": "Enter Date here!",
+        "description": "Enter date",
+        "type": "date",
+        "required": false,
+        "properties": {
+            "placeholder": "Your date"
+        },
+        "formFieldId": "123458"
+    }
+];
+
+export const ACCESS_NODE_URLS = {
+    'local': 'http://localhost:8888',
+    'testnet': 'https://rest-testnet.onflow.org',
+    'mainnet': 'https://rest-mainnet.onflow.org'
+}
+
+export const BLOCK_EXPLORER_URLS = {
+    'testnet': 'https://testnet.flowscan.org',
+    'mainnet': 'https://flowscan.org'
+}

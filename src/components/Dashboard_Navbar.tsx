@@ -2,9 +2,13 @@ import {useEffect, useState, useRef } from 'react';
 import logo1 from '../Images/logo.webp';
 import logo2 from '../Images/logo2.png';
 import { HiOutlineLogout } from 'react-icons/hi';
+import { magic } from '../utils/magic';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { globalUser } from './RequireAuth';
 
 const Dashboard_Navbar = ({ navbarShadow }: { navbarShadow: boolean }) => {
   const [showLogout, setShowLogout] = useState(false);
+  const [user, setUser] = useRecoilState(globalUser);
   const logoutRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -23,8 +27,10 @@ const Dashboard_Navbar = ({ navbarShadow }: { navbarShadow: boolean }) => {
     setShowLogout(!showLogout);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async() => {
     console.log("Logging Out...");
+    await magic.user.logout();
+    setUser(null);
   };
 
   const handleShowPrice = () => {
@@ -48,16 +54,16 @@ const Dashboard_Navbar = ({ navbarShadow }: { navbarShadow: boolean }) => {
           <div>
             <img src={logo2} alt="profile" className="w-11 h-11" />
             {showLogout && (
-              <div className="absolute right-6 sm:right-56 rounded-lg shadow-lg my-1 border" ref={logoutRef}>
+              <div className="absolute right-6 sm:right-56 rounded-lg shadow-lg my-1 border" onClick={handleLogout} ref={logoutRef}>
                 <div className="flex space-x-2 px-2 sm:px-5 py-2 rounded-lg bg-white hover:bg-red-200 justify-center items-center">
                   <HiOutlineLogout size={18} />
-                  <div className='opacity-0 left-0 top-0 absolute sm:static sm:opacity-100' onClick={handleLogout}>Logout</div>  
+                  <div className='opacity-0 left-0 top-0 absolute sm:static sm:opacity-100'>Logout</div>  
                 </div>
               </div>
             )}
           </div>
           <div className="text-gray-500 text-sm opacity-0 left-0 top-0 sm:pr-8 absolute sm:opacity-100 sm:static">
-            anuragagarwal203@gmail.com
+            {user?.email}
           </div>
         </div>
       </div>
