@@ -5,6 +5,9 @@ import { LongAnswerEditable, LongAnswerComponent } from '../../components/questi
 import { SingleOptionAnswerComponent, SingleOptionAnswerEditable } from '../../components/questions/SingleOptionAnswer';
 import { MultipleOptionAnswerComponent, MultipleOptionAnswerEditable } from '../../components/questions/MultipleOptionAnswer';
 import { EmailAnswerComponent, EmailAnswerEditable } from '../../components/questions/EmailAnswer';
+import { FileUploadComponent, FileUploadEditable } from '../../components/questions/FileUploadAnswer';
+import { WalletConnectComponent, WalletConnectEditable } from '../../components/questions/WalletConnect';
+import { TwitterComponent, TwitterEditable } from '../../components/questions/Twitter';
 
 interface QuestionProps {
     question: QuestionType,
@@ -78,6 +81,33 @@ const Question: React.FC<QuestionProps> = ({ question, handleQuestionChange }) =
                     {isEditing ?
                         <EmailAnswerEditable onChange={handleQuestionChange} question={question} />
                         : <EmailAnswerComponent question={question} isPreview />
+                    }
+                </div>
+            </>
+        case 'upload':
+            return <>
+                <div className='w-full' ref={wrapperRef} onClick={onFocus} >
+                    {isEditing ?
+                        <FileUploadEditable onChange={handleQuestionChange} question={question} />
+                        : <FileUploadComponent question={question} isPreview />
+                    }
+                </div>
+            </>
+        case 'walletConnect':
+            return <>
+                <div className='w-full' ref={wrapperRef} onClick={onFocus} >
+                    {isEditing ?
+                        <WalletConnectEditable onChange={handleQuestionChange} question={question} />
+                        : <WalletConnectComponent question={question} isPreview />
+                    }
+                </div>
+            </>
+        case 'twitter':
+            return <>
+                <div className='w-full' ref={wrapperRef} onClick={onFocus} >
+                    {isEditing ?
+                        <TwitterEditable onChange={handleQuestionChange} question={question} />
+                        : <TwitterComponent question={question} isPreview />
                     }
                 </div>
             </>

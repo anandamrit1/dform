@@ -1,4 +1,4 @@
-import { CheckBox, Email, RadioButtonChecked, ShortText } from '@mui/icons-material';
+import { CheckBox, Email, FileUpload, RadioButtonChecked, ShortText, AccountBalanceWallet, Twitter } from '@mui/icons-material';
 import NotesIcon from '@mui/icons-material/Notes';
 
 export type AddQuestionModalProps = {
@@ -32,6 +32,21 @@ function AddQuestionModal({ handleAddQuestion }: AddQuestionModalProps) {
             type: 'email',
             label: <><span className='mr-2'><Email /></span>Email</>,
             description: 'For email',
+        },
+        {
+            type: 'upload',
+            label: <><span className='mr-2'><FileUpload /></span>File Upload</>,
+            description: 'For file upload',
+        },
+        {
+            type: 'walletConnect',
+            label: <><span className='mr-2'><AccountBalanceWallet /></span>Connect Wallet</>,
+            description: 'For verifying wallet address',
+        },
+        {
+            type: 'twitter',
+            label: <><span className='mr-2 text-[#1da1f2]'><Twitter /></span>Connect Twitter</>,
+            description: 'For verifying wallet address',
         }
     ];
 

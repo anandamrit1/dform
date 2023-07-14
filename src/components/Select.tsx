@@ -43,6 +43,9 @@ function Select({className, value, formFieldId}: SelectProps) {
         <option value="singleOption">Single Option</option>
         <option value="multipleOption">Multiple Options</option>
         <option value="email">Email</option>
+        <option value="upload">File Upload</option>
+        <option value="walletConnect">Connect Wallet</option>
+        <option value="twitter">Connect Twitter</option>
     </select>
   )
 }

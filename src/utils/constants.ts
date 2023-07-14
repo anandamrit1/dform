@@ -52,3 +52,33 @@ export const DEFAULT_EMAIL_ANSWER_QUESTION = {
     },
     "formFieldId": "12345"
 }
+
+export const DEFAULT_FILE_UPLOAD_ANSWER_QUESTION = {
+    "title": "Type your question here",
+    "description": "Add your description here",
+    "type": "upload",
+    "required": false,
+    "properties": {
+    },
+    "formFieldId": "123453"
+}
+
+export const DEFAULT_WALLET_CONNECT_ANSWER_QUESTION = {
+    "title": "Type your question here",
+    "description": "Add your description here",
+    "type": "walletConnect",
+    "required": false,
+    "properties": {
+    },
+    "formFieldId": "12345385"
+}
+
+export const DEFAULT_TWITTER_ANSWER_QUESTION = {
+    "title": "What is your Twitter username?",
+    "description": "Please verify your account by clicking the button below.",
+    "type": "twitter",
+    "required": false,
+    "properties": {
+    },
+    "formFieldId": "1234538545"
+}

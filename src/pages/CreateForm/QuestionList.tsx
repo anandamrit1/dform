@@ -97,6 +97,7 @@ const QuestionsList: React.FC<QuestionsListProps> = () => {
 
     const handleAddQuestion = (type: string) => {
         const newQuestion = GetDefaultQuestion(type);
+        console.log(newQuestion);
         setQuestions((oldQuestions) => [...oldQuestions, newQuestion]);
         handleAddQuestionModalClose();
     };
