@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { Google } from "@mui/icons-material";
 
 function Login() {
-  const [loading, setIsLoading] = React.useState<boolean>(true);
+  const [loading, setIsLoading] = React.useState<boolean>(false);
   const [email, setEmail] = React.useState<string>("");
   const navigate = useNavigate();
   const googleLogin = async () => {
@@ -44,8 +44,10 @@ function Login() {
 
   const emailLogIn = async () => {
     try {
+      console.log(email)
       if (!email) return;
       const didToken = await magic.auth.loginWithMagicLink({ email });
+      console.log(didToken)
       navigate(`/login/auth?method=email&emailLoginToken=${didToken}`);
     } catch (e) {
       console.log("Email Logi Error : ", e);

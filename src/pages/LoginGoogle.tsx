@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { apiClient } from "../utils/axios";
+import { useAxios } from "../utils/axios";
 import { magic } from "../utils/magic";
 import * as fcl from "@onflow/fcl";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -8,10 +8,12 @@ const AUTHORIZATION_FUNCTION = magic.flow.authorization;
 fcl.config().put("accessNode.api", "https://rest-testnet.onflow.org");
 
 function LoginGoogle() {
-
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
   const loginMethod =  searchParams.get("method");
+
+  const navigate = useNavigate();
+  const apiClient = useAxios()
+
 
   const verify = async () => {
     try {
