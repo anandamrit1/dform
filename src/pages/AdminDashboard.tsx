@@ -3,19 +3,18 @@ import logo2 from '../Images/logo2.png'
 import FormCard from '../components/FormCard';
 import Dashboard_Navbar from '../components/Dashboard_Navbar';
 import { useNavigate } from 'react-router-dom';
-
-export type FormType = {
-  title: string;
-  coverImg: string;
-  response: number;
-  id: string;
-}
+import { useAxios } from '../utils/axios';
+import { v4 as uuidv4 } from 'uuid';
+import { DEFAULT_SHORT_ANSWER_QUESTION, newEmptyForm } from '../utils/constants';
+import { CreateFormRequestBody, Form, FormField } from '../types/Form';
+import { generateId } from '../utils/GenerateId';
 
 function AdminDashboard() {
   const [navbarShadow, setNavbarShadow] = useState(false);
-  const [forms, setForms] = useState<FormType[]>();
+  const [forms, setForms] = useState<Form[]>();
   const user = "User";
   const navigate = useNavigate();
+  const apiClient = useAxios()
   
   useEffect(() => {
     const handleScroll = () => {
@@ -35,23 +34,48 @@ function AdminDashboard() {
 
   useEffect(() => {
     // Make an API call to get all forms
-    const fetchForms = async () => {
-      const res = await fetch('https://mocki.io/v1/c1d84452-feef-4229-b123-c393e3ab7a5d', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      const data = await res.json();
-      setForms(data);
-    };
+    const fetchForms = async() => {
+      try {
+        const res = await apiClient.get('/form/getAll')
+        const data = await res.data;
+        setForms(data)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
     // Update the state
     if (user) {
       fetchForms();
     }
   }, [user]);
-  const handleAddForm = () => {
-    console.log("Adding New form...");
+  
+  const handleAddForm = async() => {
+    const formId = "form-" + generateId()
+    const newForm: Form = {
+      id: formId,
+      backgroundColor: "green",
+      description: "Untitled Form",
+    }
+    const newFormFields: FormField = {
+      ...DEFAULT_SHORT_ANSWER_QUESTION,
+      id: generateId()
+    }
+    const createFormRequestBody: CreateFormRequestBody = {
+      form: newForm,
+      feilds: [newFormFields]
+    }
+    try {
+      const res = await apiClient.post("/form/create", {
+        ...createFormRequestBody
+      })
+      const data = await res.data;
+      if (data && data?.id == formId) {
+        navigate(`/edit/${formId}`)
+      }
+    } catch(e) {
+      console.log(e)
+    }
   };
 
 
