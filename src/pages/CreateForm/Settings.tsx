@@ -160,7 +160,7 @@ function AccessGates({ settings, onChange }: SubSettingsType) {
           </form>
         }
         <div className="flex justify-between">
-          <p>Follow twitter account</p>
+          <p>Follow TwitterAccount account</p>
           <ToggleSwitch id="accessGateTwitter" label={null} checked={!!settings.accessGateTwitter} onChange={() => handleChange("accessGateTwitter")} />
         </div>
         {

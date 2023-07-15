@@ -11,7 +11,7 @@ export default function DataGridDemo() {
 
     const columns: GridColDef[] = questions.map((question) => {
         return {
-            field: question.formFieldId,
+            field: question.id,
             headerName: question.title,
             width: 150,
         }

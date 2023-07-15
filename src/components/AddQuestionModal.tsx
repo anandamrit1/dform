@@ -1,33 +1,40 @@
-import { CheckBox, Email, FileUpload, RadioButtonChecked, ShortText, AccountBalanceWallet, Twitter } from '@mui/icons-material';
+import { CheckBox, Email, FileUpload, RadioButtonChecked, ShortText, AccountBalanceWallet, Twitter, DateRange } from '@mui/icons-material';
 import NotesIcon from '@mui/icons-material/Notes';
 import { Link } from '@mui/icons-material';
 import { FaHashtag } from 'react-icons/fa';
+import { FieldType } from '../types/Form';
 
 
 export type AddQuestionModalProps = {
     handleClose: () => void,
-    handleAddQuestion: (type: string) => void,
+    handleAddQuestion: (type: FieldType) => void,
+}
+
+type NewQuestionType = {
+    type: FieldType;
+    label: JSX.Element;
+    description: string;
 }
 
 function AddQuestionModal({ handleAddQuestion }: AddQuestionModalProps) {
-    const questionTypes = [
+    const FormFields: NewQuestionType[] = [
         {
-            type: 'shortAnswer',
+            type: 'ShortText',
             label: <><span className='mr-2'><ShortText /></span>Short Answer</>,
             description: 'For short answers',
         },
         {
-            type: 'longAnswer',
+            type: 'LongText',
             label: <><span className='mr-2'><NotesIcon /></span>Long Answer</>,
             description: 'For long answers',
         },
         {
-            type: 'singleOption',
+            type: 'MultipleChoice',
             label: <><span className='mr-2'><RadioButtonChecked /></span>Single Select</>,
             description: 'For single option',
         },
         {
-            type: 'multipleOption',
+            type: 'MultipleChoice',
             label: <><span className='mr-2'><CheckBox /></span>Multiple Select</>,
             description: 'For multiple option',
         },
@@ -42,27 +49,27 @@ function AddQuestionModal({ handleAddQuestion }: AddQuestionModalProps) {
             description: 'For link',
         },
         {
-            type: 'number',
+            type: 'Number',
             label: <><span className='mr-2 '><FaHashtag className="inline-block"  /></span>Number</>,
             description: 'For Number',
         },
         {
-            type: 'date',
-            label: <><span className='mr-2 '><Date /></span>Date</>,
+            type: 'Date',
+            label: <><span className='mr-2 '><DateRange /></span>Date</>,
             description: 'For Date',
         },
         {
-            type: 'upload',
+            type: 'Upload',
             label: <><span className='mr-2'><FileUpload /></span>File Upload</>,
-            description: 'For file upload',
+            description: 'For file Upload',
         },
         {
-            type: 'walletConnect',
+            type: 'FlowAddress',
             label: <><span className='mr-2'><AccountBalanceWallet /></span>Connect Wallet</>,
             description: 'For verifying wallet address',
         },
         {
-            type: 'twitter',
+            type: 'TwitterAccount',
             label: <><span className='mr-2 text-[#1da1f2]'><Twitter /></span>Connect Twitter</>,
             description: 'For verifying wallet address',
         }
@@ -76,8 +83,8 @@ function AddQuestionModal({ handleAddQuestion }: AddQuestionModalProps) {
                 <hr className='wf-full'/>
                 <div className="flex flex-col w-full h-full py-6 overflow-y-scroll">
                 {
-                    questionTypes.map((questionType) => (
-                        <button onClick={() => handleAddQuestion(questionType.type)} className="hover:bg-gray-100 text-black py-3 px-6 rounded-lg cursor-pointer my-2 w-full text-left">{questionType.label}</button>
+                    FormFields.map((FormField) => (
+                        <button onClick={() => handleAddQuestion(FormField.type)} className="hover:bg-gray-100 text-black py-3 px-6 rounded-lg cursor-pointer my-2 w-full text-left">{FormField.label}</button>
                     ))
                 }
                 </div>

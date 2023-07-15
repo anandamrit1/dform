@@ -1,4 +1,4 @@
-import { QuestionType } from '../../types/Form';
+import { FormField } from '../../types/Form';
 import ViewShortAnswer from './viewquestions/ViewShortAnswer';
 import ViewLongAnwer from './viewquestions/ViewLongAnwer';
 import ViewMultipleOptionAnswer from './viewquestions/ViewMultipleOptionAnswer';
@@ -9,27 +9,27 @@ import ViewNumberAnswer from './viewquestions/ViewNumberAnswer';
 import ViewDateAnswer from './viewquestions/ViewDateAnswer';
 
 interface QuestionProps {
-    question: QuestionType
+    question: FormField
     themeColor: string
 }
 
 const ViewQuestion: React.FC<QuestionProps> = ({ question, themeColor }) => {
     switch (question.type) {
-        case 'shortAnswer':
+        case 'ShortText':
             return <ViewShortAnswer question={question} themeColor={themeColor} />
-        case 'longAnswer':
+        case 'LongText':
             return <ViewLongAnwer question={question} themeColor={themeColor} />
-        case 'singleOption':
+        case 'MultipleChoice':
             return <ViewSingleOptionAnswer question={question} themeColor={themeColor} />
-        case 'multipleOption':
+        case 'MultipleChoice':
             return <ViewMultipleOptionAnswer question={question} themeColor={themeColor} />
         case 'email':
             return <ViewEmailAnswer question={question} themeColor={themeColor} />
         case 'link':
             return <ViewLinkAnswer question={question}themeColor={themeColor}  />
-        case 'number':
+        case 'Number':
             return <ViewNumberAnswer question={question} themeColor={themeColor} />
-        case 'date':
+        case 'Date':
             return <ViewDateAnswer question={question} themeColor={themeColor} />
         default:
             return <></>
