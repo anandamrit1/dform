@@ -2,26 +2,27 @@ import ContentEditableInput from '../ContentEditableInput'
 import ToggleSwitch from '../ToggleSwitch'
 import { IconButton } from '@mui/material'
 import { DeleteOutline, FileUpload } from '@mui/icons-material'
-import { QuestionType } from '../../types/Form'
+import { FormField } from '../../types/Form'
 import Select from '../Select'
 
 export type FileUploadEditableProps = {
-    question: QuestionType,
-    onChange: (formFieldId: string, question: QuestionType) => void
+    question: FormField,
+    onChange: (id: string, question: FormField) => void,
+    handleDeleteQuestion: (id: string) => void
 }
 
 export type FileUploadComponentProps = {
-    question: QuestionType,
+    question: FormField,
     isPreview?: boolean
 }
 
-export function FileUploadEditable({ question, onChange }: FileUploadEditableProps) {
+export function FileUploadEditable({ question, onChange, handleDeleteQuestion }: FileUploadEditableProps) {
     const handleChange = (key: string, value: any) => {
-        const editedQuestion: QuestionType = {
+        const editedQuestion: FormField = {
             ...question,
             [key]: value
         }
-        onChange(question.formFieldId, editedQuestion);
+        onChange(question.id, editedQuestion);
     }
 
     return (
@@ -29,7 +30,7 @@ export function FileUploadEditable({ question, onChange }: FileUploadEditablePro
             <div id="form-metadata" className="flex flex-col w-full items-center gap-3">
                 <Select
                     value={question.type}
-                    formFieldId={question.formFieldId}
+                    id={question.id}
                     className='w-1/3 self-start mb-4'
                 />
                 <ContentEditableInput
@@ -40,7 +41,7 @@ export function FileUploadEditable({ question, onChange }: FileUploadEditablePro
                 />
                 <ContentEditableInput
                     placeholder='Description'
-                    value={question.description}
+                    value={question.description ?? ""}
                     onChange={(value) => handleChange("description", value)}
                     className='text-sm text-gray-400 bg-gray-100'
                 />
@@ -48,8 +49,8 @@ export function FileUploadEditable({ question, onChange }: FileUploadEditablePro
                     <span className='mr-2'><FileUpload /></span>File Upload
                 </div>
                 <div className='flex items-center justify-end w-full px-4 pt-10 gap-1'>
-                    <ToggleSwitch id={question.formFieldId} checked={question.required} onChange={() => handleChange("required", !question.required)} />
-                    <IconButton className='m-auto'>
+                    <ToggleSwitch id={question.id} checked={question.required ?? false} onChange={() => handleChange("required", !question.required)} />
+                    <IconButton onClick={() => handleDeleteQuestion(question.id)} className='m-auto'>
                         <DeleteOutline />
                     </IconButton>
                 </div>
@@ -66,7 +67,7 @@ export function FileUploadComponent({ question }: FileUploadComponentProps) {
             </div>
             <div
                 className="outline-none hover:bg-gray-100 rounded-md text-sm text-gray-400 w-5/6 p-2" >
-                {question.description}
+                {question.description ?? ""}
             </div>
             <div className='w-5/6'>
             <div className="border-[1px] border-gray-300 text-gray-500 rounded-lg w-1/3 px-2 py-4 my-2 self-start" >
