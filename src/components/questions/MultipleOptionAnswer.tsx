@@ -2,53 +2,67 @@ import ContentEditableInput from '../ContentEditableInput'
 import ToggleSwitch from '../ToggleSwitch'
 import { Checkbox, IconButton } from '@mui/material'
 import { Add, DeleteOutline } from '@mui/icons-material'
-import { QuestionType } from '../../types/Form'
+import { Choice, FormField } from '../../types/Form'
 import Select from '../Select'
 import ContentEditable from 'react-contenteditable'
+import { generateId } from '../../utils/GenerateId'
 
 export type MultipleOptionAnswerEditableProps = {
-    question: QuestionType,
-    onChange: (formFieldId: string, question: QuestionType) => void
+    question: FormField,
+    onChange: (id: string, question: FormField) => void,
+    handleDeleteQuestion: (id: string) => void
 }
 
 export type MultipleOptionAnswerComponentProps = {
-    question: QuestionType,
+    question: FormField,
     isPreview?: boolean
 }
 
-export function MultipleOptionAnswerEditable({ question, onChange }: MultipleOptionAnswerEditableProps) {
-    const options: string[] = question.properties["options"] || [];
+export function MultipleOptionAnswerEditable({ question, onChange, handleDeleteQuestion }: MultipleOptionAnswerEditableProps) {
+    const options: Choice[] | undefined = question.properties ? question.properties["choices"] : [];
     const handleOptionChange = (index: number, value: string) => {
-        const editedOptions = [...options];
-        editedOptions[index] = value;
+        const editedOptions = options ? [...options] : [];
+        editedOptions[index] = {
+            "id": generateId(),
+            "label": value
+        };
 
-        const editedQuestion: QuestionType = {
+        const editedQuestion: FormField = {
             ...question,
             "properties": {
-                "options": editedOptions
+                "id": question.properties?.id ?? generateId(),
+                "choices": editedOptions
             }
         }
-        onChange(question.formFieldId, editedQuestion);
+        onChange(question.id, editedQuestion);
     }
 
     const handleAddOption = () => {
-        const editedOptions = [...options, "New Option"];
-        const editedQuestion: QuestionType = {
+        const editedOptions = options ? [...options, 
+            {
+                "label": "New Option",
+                "id": generateId()
+            }] : [{
+                "label": "New Option",
+                "id": generateId()
+            }];
+        const editedQuestion: FormField = {
             ...question,
             "properties": {
-                "options": editedOptions
+                "id": question.properties?.id ?? generateId(),
+                "choices": editedOptions
             }
         }
-        onChange(question.formFieldId, editedQuestion);
+        onChange(question.id, editedQuestion);
     }
 
 
     const handleChange = (key: string, value: any) => {
-        const editedQuestion: QuestionType = {
+        const editedQuestion: FormField = {
             ...question,
             [key]: value
         }
-        onChange(question.formFieldId, editedQuestion);
+        onChange(question.id, editedQuestion);
     }
 
     return (
@@ -56,7 +70,7 @@ export function MultipleOptionAnswerEditable({ question, onChange }: MultipleOpt
             <div id="form-metadata" className="flex flex-col w-full items-center gap-3">
                 <Select 
                     value={question.type}
-                    formFieldId={question.formFieldId}
+                    id={question.id}
                     className='w-1/3 self-start mb-4'
                 />
                 <ContentEditableInput
@@ -67,17 +81,17 @@ export function MultipleOptionAnswerEditable({ question, onChange }: MultipleOpt
                 />
                 <ContentEditableInput
                     placeholder='Description'
-                    value={question.description}
+                    value={question.description ?? ""}
                     onChange={(value) => handleChange("description", value)}
                     className='text-sm text-gray-400 bg-gray-100'
                 />
                 {
-                    options.map((option, index) => (
+                    options?.map((option, index) => (
                         <div key={index} className='flex items-center gap-2 w-full px-4'>
                             <Checkbox checked={false} disabled />
                             <ContentEditable
                                 placeholder='Option'
-                                html={option}
+                                html={option.label}
                                 onChange={(e) => handleOptionChange(index, e.target.value)}
                                 className='text-gray-400 focus:outline-none'
                             />
@@ -93,8 +107,8 @@ export function MultipleOptionAnswerEditable({ question, onChange }: MultipleOpt
                 
 
                 <div className='flex items-center justify-end w-full px-4 pt-10 gap-1'>
-                    <ToggleSwitch id="multipleOption" checked={question.required} onChange={() => handleChange("required", !question.required)}/>
-                    <IconButton className='m-auto'>
+                    <ToggleSwitch id="MultipleChoice" checked={question.required ?? false} onChange={() => handleChange("required", !question.required)}/>
+                    <IconButton onClick={() => handleDeleteQuestion(question.id)} className='m-auto'>
                         <DeleteOutline />
                     </IconButton>
                 </div>
@@ -104,7 +118,7 @@ export function MultipleOptionAnswerEditable({ question, onChange }: MultipleOpt
 }
 
 export function MultipleOptionAnswerComponent({ question }: MultipleOptionAnswerComponentProps) {
-    const options = question.properties["options"] as string[];
+    const options: Choice[] | undefined= question.properties ? question.properties["choices"] : [];
     return <div className="flex flex-col items-center rounded-xl py-4 cursor-pointer hover:bg-gray-100 m-auto border-black w-full bg-white">
         <div id="form-metadata" className="flex flex-col w-full items-center">
             <div
@@ -112,13 +126,13 @@ export function MultipleOptionAnswerComponent({ question }: MultipleOptionAnswer
             </div>
             <div
                 className="outline-none hover:bg-gray-100 rounded-md text-sm text-gray-400 w-5/6 p-2" >
-                {question.description}
+                {question.description ?? ""}
             </div>
             {
-                    options.map((option, index) => (
+                    options?.map((option, index) => (
                         <div key={index} className='flex items-center gap-2 w-5/6'>
                             <Checkbox checked={false} disabled />
-                            <div className='text-gray-400 focus:outline-none'>{option}</div>
+                            <div className='text-gray-400 focus:outline-none'>{option.label}</div>
                         </div>
                     ))
                 }

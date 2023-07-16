@@ -3,19 +3,18 @@ import logo2 from '../Images/logo2.png'
 import FormCard from '../components/FormCard';
 import Dashboard_Navbar from '../components/Dashboard_Navbar';
 import { useNavigate } from 'react-router-dom';
-
-export type FormType = {
-  title: string;
-  coverImg: string;
-  response: number;
-  id: string;
-}
+import { useAxios } from '../utils/axios';
+import { v4 as uuidv4 } from 'uuid';
+import { DEFAULT_SHORT_ANSWER_QUESTION, newEmptyForm } from '../utils/constants';
+import { CreateFormRequestBody, Form, FormField } from '../types/Form';
+import { generateId } from '../utils/GenerateId';
 
 function AdminDashboard() {
   const [navbarShadow, setNavbarShadow] = useState(false);
-  const [forms, setForms] = useState<FormType[]>();
+  const [forms, setForms] = useState<Form[]>();
   const user = "User";
   const navigate = useNavigate();
+  const apiClient = useAxios()
   
   useEffect(() => {
     const handleScroll = () => {
@@ -35,23 +34,48 @@ function AdminDashboard() {
 
   useEffect(() => {
     // Make an API call to get all forms
-    const fetchForms = async () => {
-      const res = await fetch('https://mocki.io/v1/c1d84452-feef-4229-b123-c393e3ab7a5d', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      const data = await res.json();
-      setForms(data);
-    };
+    const fetchForms = async() => {
+      try {
+        const res = await apiClient.get('/form/getAll')
+        const data = await res.data;
+        setForms(data)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
     // Update the state
     if (user) {
       fetchForms();
     }
   }, [user]);
-  const handleAddForm = () => {
-    console.log("Adding New form...");
+  
+  const handleAddForm = async() => {
+    const formId = "form-" + generateId()
+    const newForm: Form = {
+      id: formId,
+      backgroundColor: "green",
+      description: "Untitled Form",
+    }
+    const newFormFields: FormField = {
+      ...DEFAULT_SHORT_ANSWER_QUESTION,
+      id: generateId()
+    }
+    const createFormRequestBody: CreateFormRequestBody = {
+      form: newForm,
+      feilds: [newFormFields]
+    }
+    try {
+      const res = await apiClient.post("/form/create", {
+        ...createFormRequestBody
+      })
+      const data = await res.data;
+      if (data && data?.id == formId) {
+        navigate(`/edit/${formId}`)
+      }
+    } catch(e) {
+      console.log(e)
+    }
   };
 
 
@@ -104,7 +128,7 @@ const Comp1 = () => {
       </div>
       <div className="flex -space-x-3 hover:opacity-80 cursor-pointer justify-center items-center">
         <div className="bg-gray-200 rounded-full w-12 h-12 flex items-center justify-center font-thin">
-          <div className="h-[24px] w-[24px]"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd"></path></svg></div>
+          <div className="h-[24px] w-[24px]"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fillRule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clipRule="evenodd"></path></svg></div>
         </div>
         <div className='absolute left-0 right-0 opacity-0 sm:static sm:opacity-100 '>
           <div className="relative group">

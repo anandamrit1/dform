@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { QuestionType } from '../../types/Form';
 import { ShortAnswerEditable, ShortAnswerComponent } from '../../components/questions/ShortAnswer';
 import { LongAnswerEditable, LongAnswerComponent } from '../../components/questions/LongAnswer';
 import { SingleOptionAnswerComponent, SingleOptionAnswerEditable } from '../../components/questions/SingleOptionAnswer';
@@ -11,10 +10,12 @@ import { DateAnswerComponent, DateAnswerEditable } from '../../components/questi
 import { FileUploadComponent, FileUploadEditable } from '../../components/questions/FileUploadAnswer';
 import { WalletConnectComponent, WalletConnectEditable } from '../../components/questions/WalletConnect';
 import { TwitterComponent, TwitterEditable } from '../../components/questions/Twitter';
+import { FormField } from '../../types/Form';
 
 interface QuestionProps {
-    question: QuestionType,
-    handleQuestionChange: (formFieldId: string, question: QuestionType) => void
+    question: FormField,
+    handleQuestionChange: (id: string, question: FormField) => void
+    handleDeleteQuestion: (id: string) => void
 }
 
 function useClickOutside(ref: React.RefObject<HTMLDivElement>, callback: Function) {
@@ -32,7 +33,7 @@ function useClickOutside(ref: React.RefObject<HTMLDivElement>, callback: Functio
     }, [ref, callback]);
 }
 
-const Question: React.FC<QuestionProps> = ({ question, handleQuestionChange }) => {
+const Question: React.FC<QuestionProps> = ({ question, handleQuestionChange, handleDeleteQuestion }) => {
     const [isEditing, setIsEditing] = useState<boolean>(false);
 
     const wrapperRef = useRef<HTMLDivElement>(null);
@@ -42,38 +43,38 @@ const Question: React.FC<QuestionProps> = ({ question, handleQuestionChange }) =
         setIsEditing(true);
     };
     switch (question.type) {
-        case 'shortAnswer':
+        case 'ShortText':
             return <>
                 <div className='w-full' ref={wrapperRef} onClick={onFocus} >
                     {isEditing ?
-                        <ShortAnswerEditable onChange={handleQuestionChange} question={question} />
+                        <ShortAnswerEditable handleDeleteQuestion={handleDeleteQuestion} onChange={handleQuestionChange} question={question} />
                         : <ShortAnswerComponent question={question} isPreview />
                     }
                 </div>
             </>
-        case 'longAnswer':
+        case 'LongText':
             return <>
                 <div className='w-full' ref={wrapperRef} onClick={onFocus} >
                     {isEditing ?
-                        <LongAnswerEditable onChange={handleQuestionChange} question={question} />
+                        <LongAnswerEditable handleDeleteQuestion={handleDeleteQuestion} onChange={handleQuestionChange} question={question} />
                         : <LongAnswerComponent question={question} isPreview />
                     }
                 </div>
             </>
-        case 'singleOption':
+        case 'MultipleChoice':
             return <>
                 <div className='w-full' ref={wrapperRef} onClick={onFocus} >
                     {isEditing ?
-                        <SingleOptionAnswerEditable onChange={handleQuestionChange} question={question} />
+                        <SingleOptionAnswerEditable handleDeleteQuestion={handleDeleteQuestion} onChange={handleQuestionChange} question={question} />
                         : <SingleOptionAnswerComponent question={question} isPreview />
                     }
                 </div>
             </>
-        case 'multipleOption':
+        case 'MultipleChoice':
             return <>
                 <div className='w-full' ref={wrapperRef} onClick={onFocus} >
                     {isEditing ?
-                        <MultipleOptionAnswerEditable onChange={handleQuestionChange} question={question} />
+                        <MultipleOptionAnswerEditable handleDeleteQuestion={handleDeleteQuestion} onChange={handleQuestionChange} question={question} />
                         : <MultipleOptionAnswerComponent question={question} isPreview />
                     }
                 </div>
@@ -82,7 +83,7 @@ const Question: React.FC<QuestionProps> = ({ question, handleQuestionChange }) =
             return <>
                 <div className='w-full' ref={wrapperRef} onClick={onFocus} >
                     {isEditing ?
-                        <EmailAnswerEditable onChange={handleQuestionChange} question={question} />
+                        <EmailAnswerEditable handleDeleteQuestion={handleDeleteQuestion} onChange={handleQuestionChange} question={question} />
                         : <EmailAnswerComponent question={question} isPreview />
                     }
                 </div>
@@ -91,52 +92,52 @@ const Question: React.FC<QuestionProps> = ({ question, handleQuestionChange }) =
             return <>
                 <div className='w-full' ref={wrapperRef} onClick={onFocus} >
                     {isEditing ?
-                        <LinkAnswerEditable onChange={handleQuestionChange} question={question} />
+                        <LinkAnswerEditable handleDeleteQuestion={handleDeleteQuestion} onChange={handleQuestionChange} question={question} />
                         : <LinkAnswerComponent question={question} isPreview />
                     }
                 </div>
             </>
-        case 'number':
+        case 'Number':
             return <>
                 <div className='w-full' ref={wrapperRef} onClick={onFocus} >
                     {isEditing ?
-                        <NumberAnswerEditable onChange={handleQuestionChange} question={question} />
+                        <NumberAnswerEditable handleDeleteQuestion={handleDeleteQuestion} onChange={handleQuestionChange} question={question} />
                         : <NumberAnswerComponent question={question} isPreview />
                     }
                 </div>
             </>
-        case 'date':
+        case 'Date':
             return <>
                 <div className='w-full' ref={wrapperRef} onClick={onFocus} >
                     {isEditing ?
-                        <DateAnswerEditable onChange={handleQuestionChange} question={question} />
+                        <DateAnswerEditable handleDeleteQuestion={handleDeleteQuestion} onChange={handleQuestionChange} question={question} />
                         : <DateAnswerComponent question={question} isPreview />
                     }
                 </div>
             </>
-        case 'upload':
+        case 'Upload':
             return <>
                 <div className='w-full' ref={wrapperRef} onClick={onFocus} >
                     {isEditing ?
-                        <FileUploadEditable onChange={handleQuestionChange} question={question} />
+                        <FileUploadEditable handleDeleteQuestion={handleDeleteQuestion} onChange={handleQuestionChange} question={question} />
                         : <FileUploadComponent question={question} isPreview />
                     }
                 </div>
             </>
-        case 'walletConnect':
+        case 'FlowAddress':
             return <>
                 <div className='w-full' ref={wrapperRef} onClick={onFocus} >
                     {isEditing ?
-                        <WalletConnectEditable onChange={handleQuestionChange} question={question} />
+                        <WalletConnectEditable handleDeleteQuestion={handleDeleteQuestion} onChange={handleQuestionChange} question={question} />
                         : <WalletConnectComponent question={question} isPreview />
                     }
                 </div>
             </>
-        case 'twitter':
+        case 'TwitterAccount':
             return <>
                 <div className='w-full' ref={wrapperRef} onClick={onFocus} >
                     {isEditing ?
-                        <TwitterEditable onChange={handleQuestionChange} question={question} />
+                        <TwitterEditable handleDeleteQuestion={handleDeleteQuestion} onChange={handleQuestionChange} question={question} />
                         : <TwitterComponent question={question} isPreview />
                     }
                 </div>
