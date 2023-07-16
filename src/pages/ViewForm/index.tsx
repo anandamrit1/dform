@@ -2,15 +2,15 @@
 import logo3 from '../../Images/logo3.webp'
 import ViewQuestion from './ViewQuestion';
 import { RiSendPlane2Line } from 'react-icons/ri';
-// import { Form } from '../../types/Form';
-// import { FormField } from '../../../types/Form'
-import { Formik, Form } from 'formik';
+import { Formik, Form as MyForm  } from 'formik';
 import { useEffect, useState } from 'react';
 // import * as fcl from '@onflow/fcl';
 import { mockForm, mockQuestions } from '../../utils/constants';
 import AccesGate from './AccesGate';
 import { QuestionsValidationSchema } from '../../utils/QuestionValidationSchema';
-import { Form as FormType, FormField } from '../../types/Form';
+import { Form, FormField } from '../../types/Form';
+import { atom, useRecoilState } from "recoil";
+import { useAxios } from "../../utils/axios";
 
 interface FormValues {
     [key: string]: string;
@@ -36,31 +36,33 @@ export type AccessGateTwitter = {
 //     accessGateTwitter?: AccessGateTwitter
 // };
 
+export type AdminFormType = Form & {
+    feilds?: FormField[]
+}
 
 const index = () => {
     const [user, setUser] = useState<{ loggedIn: boolean, addr?: string }>({ loggedIn: false })
-    const [form, setForm] = useState<FormType | null>(null)
+    const [form, setForm] = useState<AdminFormType | null>(null)
     const [questions, setQuestions] = useState<FormField[] | undefined>([])
     const [verified, setVerified] = useState<verificationStatus>("NOT_CONNECTED")
 
-    const searchParams = new URLSearchParams(window.location.search);
-    const formId = searchParams.get('viewform');
+    // const formId = "form-0b8e10bf-683f-4e33-9b89-d117a1b45300";
+    // const searchParams = new URLSearchParams(window.location.search);
+    // const formId = searchParams.get('viewform');
+    const pathname: string = new URL(window.location.href).pathname;
+    const formId: string = pathname.split('/').pop() || '';
+
+    const apiClient = useAxios();
 
     useEffect(() => {
-        const fetchForm = async () => {
-            console.log(formId);
-            const res = await fetch(`https://flowform.free.beeceptor.com/form`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            console.log(res)
-            const data = await res.json();
-            setForm(data);
-        };
-        fetchForm();
-    }, [formId]);
+        const getFormDetails = async() => {
+            const res = await apiClient.get(`form/get/${formId}`);
+            const data = await res.data;
+            console.log(data)
+            setForm(data)
+        }
+        getFormDetails()
+    }, [formId])
 
     console.log(user)
     useEffect(() => {
@@ -75,18 +77,8 @@ const index = () => {
     }, [form])
 
     useEffect(() => {
-        const fetchQuestions = async () => {
-            const res = await fetch(`https://flowform.free.beeceptor.com/questions`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            const data = await res.json();
-            setQuestions(data);
-        };
         if (form && user?.loggedIn) {
-            fetchQuestions();
+            setQuestions(form?.feilds)
         }
     }, [user, form])
 
@@ -96,15 +88,28 @@ const index = () => {
         questions.map((element) => [element.id, ''])
     ) : {}
 
-    const onSubmit = (values: FormValues) => {
-        // Handle form submission here
-        console.log(values);
+    const onSubmit = async(values: FormValues) => {
+        const requestBody = {
+            formId: formId,
+            data: values,
+        };
+        try {
+            const res = await apiClient.post("/response/create", {
+                ...requestBody
+            })
+
+            // const data = await res.data;
+            // console.log(data);
+
+        } catch (e) {
+            console.log(e)
+        }
     };
 
-    if (!form) return <>Loading</>
+    if (!form) return <>Loading1</>
     // if (!user.loggedIn || (user.loggedIn && verified != "VERIFIED")) return <AccesGate verified={verified} setVerified={setVerified} user={user} accessGateNft={form.accessGateNft} />
 
-    if (!questions) return <>Loading</>
+    if (!questions) return <>Loading2</>
 
     return (
         <div className="w-full bg-white flex justify-center items-center">
@@ -125,7 +130,7 @@ const index = () => {
                 </div>
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} >
                     {({ isValid, dirty }) => (
-                        <Form className='w-full'>
+                        <MyForm  className='w-full'>
                             {questions.map((question, index) => (
                                 <ViewQuestion key={index} question={question} themeColor={form?.backgroundColor ?? "green"} />
                             ))}
@@ -135,7 +140,7 @@ const index = () => {
                                     <RiSendPlane2Line className="text-white" />
                                 </button>
                             </div>
-                        </Form>
+                        </MyForm>
                     )}
                 </Formik>
                 <div>Powered by <span className='font-bold' > deform.cc</span></div>

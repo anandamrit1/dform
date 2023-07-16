@@ -47,16 +47,7 @@ export function DateAnswerEditable({ question, onChange, handleDeleteQuestion }:
                     onChange={(value) => handleChange("description", value)}
                     className='text-sm text-gray-400 bg-gray-100'
                 />
-                <div className="flex w-full">
-                     <DatePicker
-                        selected= {new Date('2023-07-12')}
-                        onChange={()=>{}}
-                        dateFormat="dd/MM/yyyy"
-                        placeholderText="Select Date"
-                        value={question?.properties ? question?.properties["placeholderText"] : ""}
-                        className='w-5/6 px-4 py-5 my-4 rounded-md border-[1px] text-base border-gray-400 focus:border-gray-800 text-gray-400 focus:outline-none '
-                    />
-                 </div>
+                <div className="flex w-full"> <input className='px-4 py-5 w-2/5 rounded-md border-[1px] border-gray-400 focus:border-gray-800 text-gray-400 focus:outline-none' placeholder='Your Answer' value={question?.properties ? question?.properties["placeholderText"] : ""} /> </div>
                 <div className='flex items-center justify-end w-full px-4 pt-10 gap-1'>
                     <ToggleSwitch id="Date" checked={question.required ?? false} onChange={() => handleChange("required", !question.required)}/>
                     <IconButton onClick={() => handleDeleteQuestion(question.id)} className='m-auto'>
@@ -73,21 +64,6 @@ export function DateAnswerComponent({ question }: DateAnswerComponentProps) {
         <div id="form-metadata" className="flex flex-col w-full items-center">
             <div
                 className="outline-none hover:bg-gray-100 font-bold rounded-md w-5/6 p-2" >{question.title}
-            </div>
-            <div
-                className="outline-none hover:bg-gray-100 rounded-md text-sm text-gray-400 w-5/6 p-2" >
-                {question.description ?? ""}
-                <div className="flex w-full">
-                    {/* value={question?.properties ? question?.properties["placeholderText"] : ""} />  */}
-                    <DatePicker
-                        selected= {new Date('2023-07-12')}
-                        onChange={()=>{}}
-                        dateFormat="dd/MM/yyyy"
-                        placeholderText="Select Date"
-                        value={question?.properties ? question?.properties["placeholderText"] : ""}
-                        className='w-5/6 px-4 py-5 my-4 rounded-md border-[1px] text-base border-gray-400 focus:border-gray-800 text-gray-400 focus:outline-none '
-                    />
-                </div>
             </div>
             <div className="flex w-5/6"> <input className='w-2/5 min-w-[160px] px-4 py-5 my-4 rounded-md border-[1px] border-gray-400 focus:border-gray-800 text-gray-400 focus:outline-none' placeholder='Your Answer' value={question.properties ?  question.properties["placeholderText"]: "" } /> </div>
         </div>

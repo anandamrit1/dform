@@ -24,7 +24,7 @@ function AppRoutes() {
           element={<RequireAuth><AdminDashboard /></RequireAuth>}
         />
         <Route
-          path="/viewform/:formId"
+          path="/form/:formId"
           element={<ViewForm />}
         />
         <Route
