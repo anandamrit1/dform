@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { DEFAULT_SHORT_ANSWER_QUESTION, newEmptyForm } from '../utils/constants';
 import { CreateFormRequestBody, Form, FormField } from '../types/Form';
 import { generateId } from '../utils/GenerateId';
+import Skeleton from 'react-loading-skeleton';
 
 function AdminDashboard() {
   const [navbarShadow, setNavbarShadow] = useState(false);
@@ -81,9 +82,6 @@ function AdminDashboard() {
     console.log("Deleting form...");
   };
 
-  if (!forms) {
-    return <>Loading...</>
-  }
 
   return (
     <div className="w-full flex flex-col items-center justify-center" >
@@ -105,9 +103,16 @@ function AdminDashboard() {
           </div>
         </div>
 
-        {forms.map((form, index) => (
+        {
+        forms? forms.map((form, index) => (
           <FormCard key={index} form={form} onClick={() => navigate(`/edit/${form.id}`)} onDelete={handleDeleteForm} />
-        ))}
+        ))
+        : <>
+        <Skeleton style={{ width: "250px", height: "302px"}} />
+        <Skeleton style={{ width: "250px", height: "302px"}} />
+        <Skeleton style={{ width: "250px", height: "302px"}} />
+        </>
+      }
 
       </div>
       <div className="mb-6"></div>

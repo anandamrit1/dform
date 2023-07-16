@@ -3,6 +3,7 @@ import { magic } from '../utils/magic';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { atom, useRecoilState } from 'recoil';
+import Dashboard_Navbar from './Dashboard_Navbar';
 
 type UserType = {
     accountAddress: string,
@@ -49,7 +50,7 @@ function RequireAuth({ children }: { children: React.ReactNode}) {
     <>
       {
         isLoading ? (
-            <div>Loading...</div>
+            <Dashboard_Navbar navbarShadow />
         ) : (
             <div>{children}</div>
         )
