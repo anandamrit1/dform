@@ -69,7 +69,7 @@ const QuestionsList: React.FC<QuestionsListProps> = () => {
     const delaySaveToDb = useCallback(debounce((form)=>{
         updateFormHandler(form, apiClient)
       }
-    , 5000), [apiClient]);
+    , 2000), [apiClient]);
     
     useEffect(() => {
     if(form) {
@@ -97,6 +97,7 @@ const QuestionsList: React.FC<QuestionsListProps> = () => {
         newQuestion.id = generateId();
         if (newQuestion.properties) newQuestion.properties.id = generateId();
         const updatedForm = {...form, feilds: [...form?.feilds!, newQuestion ], id: form!.id}
+        console.log("updatedFrom", updatedForm)
         setForm(updatedForm);
         handleAddQuestionModalClose();
     };
@@ -109,6 +110,7 @@ const QuestionsList: React.FC<QuestionsListProps> = () => {
         }
     }, [])
 
+    console.log(questions)
     if (!form) return <>Loading</>
     return (
         <>

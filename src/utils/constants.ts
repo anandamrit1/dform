@@ -1,4 +1,5 @@
 import { FormField } from "../types/Form"
+import { generateId } from "./GenerateId"
 
 export const DEFAULT_SHORT_ANSWER_QUESTION: FormField = {
     "title": "What is your name?",
@@ -6,10 +7,10 @@ export const DEFAULT_SHORT_ANSWER_QUESTION: FormField = {
     "type": "ShortText",
     "required": false,
     "properties": {
-        "id": "123",
+        "id": generateId(),
         "placeholderText": "Your Answer"
     },
-    "id": "12345345",
+    "id": generateId(),
     "fieldOrder": 0
 }
 
@@ -19,10 +20,10 @@ export const DEFAULT_LONG_ANSWER_QUESTION: FormField = {
     "type": "LongText",
     "required": false,
     "properties": {
-        "id": "123",
+        "id": generateId(),
         "placeholderText": "Your Answer"
     },
-    "id": "12345345",
+    "id": generateId(),
     "fieldOrder": 0
 }
 
@@ -32,19 +33,19 @@ export const DEFAULT_SINGLE_OPTION_ANSWER_QUESTION: FormField = {
     "type": "MultipleChoice",
     "required": false,
     "properties": {
-        "id": "123",
+        "id": generateId(),
         "choices": [
             {
-                "id": "12",
+                "id": generateId(),
                 "label": "Option 1"
             },
             {
-                "id": "12q",
+                "id": generateId(),
                 "label": "Option 2"
             }
         ]
     },
-    "id": "1245385",
+    "id": generateId(),
     "fieldOrder": 0
 }
 
@@ -102,9 +103,9 @@ export const DEFAULT_NUMBER_ANSWER_QUESTION: FormField = {
     "type": "Number",
     "required": false,
     "properties": {
-        "id": "123"
+        "id": generateId()
     },
-    "id": "14538545",
+    "id": generateId(),
     "fieldOrder": 0
 }
 
@@ -114,10 +115,10 @@ export const DEFAULT_DATE_ANSWER_QUESTION: FormField = {
     "type": "Date",
     "required": false,
     "properties": {
-        "id": "123",
+        "id": generateId(),
         "placeholderText": "Your Answer"
     },
-    "id": "1234538545",
+    "id": generateId(),
     "fieldOrder": 0
 }
 
@@ -127,9 +128,9 @@ export const DEFAULT_FILE_UPLOAD_ANSWER_QUESTION: FormField = {
     "type": "Upload",
     "required": false,
     "properties": {
-        "id": "123"
+        "id": generateId()
     },
-    "id": "1234538",
+    "id": generateId(),
     "fieldOrder": 0
 }
 
@@ -139,9 +140,9 @@ export const DEFAULT_WALLET_CONNECT_ANSWER_QUESTION: FormField = {
     "type": "FlowAddress",
     "required": false,
     "properties": {
-        "id": "123"
+        "id": generateId()
     },
-    "id": "123453854",
+    "id": generateId(),
     "fieldOrder": 0
 }
 
@@ -151,9 +152,9 @@ export const DEFAULT_TWITTER_ANSWER_QUESTION: FormField = {
     "type": "TwitterAccount",
     "required": false,
     "properties": {
-        "id": "123"
+        "id": generateId()
     },
-    "id": "1234538545",
+    "id": generateId(),
     "fieldOrder": 0
 }
 

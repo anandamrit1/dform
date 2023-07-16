@@ -22,11 +22,10 @@ export const GetDefaultQuestion = (FormField: string): FormField => {
             return DEFAULT_EMAIL_ANSWER_QUESTION
         case 'link':
             return DEFAULT_LINK_ANSWER_QUESTION
-        case 'number':
+        case 'Number':
             return DEFAULT_NUMBER_ANSWER_QUESTION
-        case 'date':
+        case 'Date':
             return DEFAULT_DATE_ANSWER_QUESTION
-            return DEFAULT_EMAIL_ANSWER_QUESTION
         case 'Upload':
             return DEFAULT_FILE_UPLOAD_ANSWER_QUESTION
         case 'FlowAddress':

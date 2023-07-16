@@ -44,7 +44,7 @@ export function LongAnswerEditable({ question, onChange, handleDeleteQuestion }:
                     onChange={(value) => handleChange("description", value)}
                     className='text-sm text-gray-400 bg-gray-100'
                 />
-                <textarea className='min-h-[120px] w-full resize-y px-4 py-5 rounded-md border-[1px] border-gray-400 focus:border-gray-800 text-gray-400 focus:outline-none' placeholder='Your Answer' onChange={(e) => handleChange("properties", {"placeholder": e.target.value})} value={question?.properties ? question?.properties["placeholderText"] : ""} />
+                <textarea className='min-h-[120px] w-full resize-y px-4 py-5 rounded-md border-[1px] border-gray-400 focus:border-gray-800 text-gray-400 focus:outline-none' placeholder='Your Answer' onChange={(e) => handleChange("properties", {...question?.properties , "placeholderText": e.target.value})} value={question?.properties ? question?.properties["placeholderText"] : ""} />
                 <div className='flex items-center justify-end w-full px-4 pt-10 gap-1'>
                     <ToggleSwitch id="LongText" checked={question.required ?? false} onChange={() => handleChange("required", !question.required)}/>
                     <IconButton onClick={() => handleDeleteQuestion(question.id)} className='m-auto'>

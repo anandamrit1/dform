@@ -9,7 +9,7 @@ const rows: any[] = [
 export default function DataGridDemo() {
     const questions = useRecoilValue(questionListAtom)
 
-    const columns: GridColDef[] = questions.map((question) => {
+    const columns: GridColDef[] | undefined = questions?.map((question) => {
         return {
             field: question.id,
             headerName: question.title,
@@ -22,7 +22,7 @@ export default function DataGridDemo() {
     <Box sx={{ height: 400 }}>
       <DataGrid
         rows={rows}
-        columns={columns}
+        columns={columns!}
         initialState={{
           pagination: {
             paginationModel: {

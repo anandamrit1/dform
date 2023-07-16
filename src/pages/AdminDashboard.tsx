@@ -57,10 +57,7 @@ function AdminDashboard() {
       backgroundColor: "green",
       description: "Untitled Form",
     }
-    const newFormFields: FormField = {
-      ...DEFAULT_SHORT_ANSWER_QUESTION,
-      id: generateId()
-    }
+    const newFormFields: FormField = DEFAULT_SHORT_ANSWER_QUESTION
     const createFormRequestBody: CreateFormRequestBody = {
       form: newForm,
       feilds: [newFormFields]
