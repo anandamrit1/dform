@@ -143,7 +143,7 @@ const QuestionsList: React.FC<QuestionsListProps> = () => {
                                     </IconButton>
                                 </Tooltip>
                             </div>
-                        </> : <QuestionsEditPageSkeleton />
+                        </> : <QuestionsPageSkeleton />
                 }
                 <div className="m-auto mt-8">
                     Powered by <span className="font-bold cursor-pointer">TaleFlow</span>
@@ -170,7 +170,7 @@ const QuestionsList: React.FC<QuestionsListProps> = () => {
 };
 
 
-const QuestionsEditPageSkeleton = () => {
+export const QuestionsPageSkeleton = () => {
     return <>
         <div className="flex flex-col w-full gap-2 py-6 px-10">
             <Skeleton
