@@ -7,6 +7,9 @@ import ViewEmailAnswer from './viewquestions/ViewEmailAnswer';
 import ViewLinkAnswer from './viewquestions/ViewLinkAnswer';
 import ViewNumberAnswer from './viewquestions/ViewNumberAnswer';
 import ViewDateAnswer from './viewquestions/ViewDateAnswer';
+import ViewUploadFileAnswer from './viewquestions/ViewFileUploadAnswer';
+import ViewWalletConnect from './viewquestions/ViewWalletConnect';
+import ViewTwitter from './viewquestions/ViewTwitter';
 
 interface QuestionProps {
     question: QuestionType
@@ -31,6 +34,12 @@ const ViewQuestion: React.FC<QuestionProps> = ({ question, themeColor }) => {
             return <ViewNumberAnswer question={question} themeColor={themeColor} />
         case 'date':
             return <ViewDateAnswer question={question} themeColor={themeColor} />
+        case 'upload':
+            return <ViewUploadFileAnswer question={question} themeColor={themeColor} />
+        case 'walletConnect':
+            return <ViewWalletConnect question={question} themeColor={themeColor} />
+        case 'twitter':
+            return <ViewTwitter question={question} themeColor={themeColor} />
         default:
             return <></>
     }

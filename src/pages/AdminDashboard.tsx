@@ -72,11 +72,11 @@ function AdminDashboard() {
       <div className="grid gap-y-8 gap-x-8 grid-cols-custom ">
         <div className='h-[302px] w-[250px] bg-white border rounded-3xl shadow-lg hover:opacity-90 transition duration-200 cursor-pointer' onClick={handleAddForm}>
           <div className="flex flex-col items-center justify-center space-y-6 h-full">
-            <div className="h-[75px] w-[75px] rounded-[50%] bg-secondary p-[3px]">
+            <div className="h-[75px] w-[75px] rounded-[50%] bg-green-500 p-[3px]">
               <div className="relative flex h-full w-full items-center justify-center rounded-[50%] bg-white">
-                <div className="absolute h-[25px] w-[3px] rounded bg-secondary">
+                <div className="absolute h-[25px] w-[3px] rounded bg-green-500">
                 </div>
-                <div className="absolute h-[3px] w-[25px] rounded bg-secondary">
+                <div className="absolute h-[3px] w-[25px] rounded bg-green-500">
                 </div>
               </div>
             </div>

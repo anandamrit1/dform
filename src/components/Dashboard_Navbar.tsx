@@ -39,7 +39,7 @@ const Dashboard_Navbar = ({ navbarShadow }: { navbarShadow: boolean }) => {
       </div>
       <div className="flex space-x-5">
         <div
-          className="border-2 px-4 py-1 font-bold rounded-lg border-primary flex items-center hover:bg-tertiary cursor-pointer"
+          className="border-2 px-4 py-1 font-bold rounded-lg border-green-500 flex items-center hover:bg-green-100 cursor-pointer"
           onClick={handleShowPrice}
         >
           🚀 Free

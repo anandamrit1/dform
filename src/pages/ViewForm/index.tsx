@@ -93,6 +93,33 @@ const index = () => {
                 "placeholder": "Your date"
             },
             "formFieldId": "123458"
+        },
+        {
+            "title": "Type your question here",
+            "description": "Add your description here",
+            "type": "upload",
+            "required": false,
+            "properties": {
+            },
+            "formFieldId": "123453"
+        },
+        {
+            "title": "Type your question here",
+            "description": "Add your description here",
+            "type": "walletConnect",
+            "required": false,
+            "properties": {
+            },
+            "formFieldId": "12345385"
+        },
+        {
+            "title": "What is your Twitter username?",
+            "description": "Please verify your account by clicking the button below.",
+            "type": "twitter",
+            "required": false,
+            "properties": {
+            },
+            "formFieldId": "1234538545"
         }
     ];
 
@@ -142,6 +169,21 @@ const index = () => {
                         ? yupSchema = Yup.date().required('Date is required').typeError('Invalid date')
                         : yupSchema = Yup.date().nullable().typeError('Invalid date')
                 }
+                else if (element.type === 'upload') {
+                    element.required
+                        ? yupSchema = Yup.mixed().required('Required')
+                        : yupSchema = Yup.mixed()
+                }
+                else if (element.type === 'walletConnect') {
+                    element.required
+                        ? yupSchema = Yup.boolean().oneOf([true], 'Wallet address and Signature are required').required('Required')
+                        : yupSchema = Yup.boolean().nullable()
+                }
+                else if (element.type === 'twitter') {
+                    element.required
+                        ? yupSchema = Yup.boolean().oneOf([true], 'Wallet address and Signature are required').required('Required')
+                        : yupSchema = Yup.boolean().nullable()
+                }
                 else {
                     yupSchema = Yup.string();
                 }
@@ -184,13 +226,12 @@ const index = () => {
                                 <ViewQuestion key={index} question={question} themeColor={form1.backgroundColor} />
                             ))}
                             <div className="flex w-full justify-end">
-                                <button type="submit" disabled={!isValid || !dirty} className={`bg-${form1.backgroundColor}-600 text-white flex items-center gap-2 p-2.5 rounded-xl font-bold px-6 ${(!isValid || !dirty) ? "opacity-60" : "opacity-100"} transition duration-100 my-4 mb-10`}>
+                                <button type="submit" disabled={!isValid || !dirty} className={`bg-${form1.backgroundColor}-600 text-white flex items-center gap-2 p-2.5 rounded-xl font-bold px-6 ${(!isValid || !dirty) ? "opacity-60" : "opacity-100"} transition duration-200 my-4 mb-10 border-2 hover:border-${form1.backgroundColor}-600 border-white `}>
                                     Submit
                                     <RiSendPlane2Line className="text-white" />
                                 </button>
                             </div>
                         </Form>
-
                     )}
                 </Formik>
                 <div>Powered by <span className='font-bold' > deform.cc</span></div>

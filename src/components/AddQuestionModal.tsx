@@ -1,7 +1,7 @@
 import { CheckBox, Email, FileUpload, RadioButtonChecked, ShortText, AccountBalanceWallet, Twitter } from '@mui/icons-material';
 import NotesIcon from '@mui/icons-material/Notes';
 import { Link } from '@mui/icons-material';
-import { FaHashtag } from 'react-icons/fa';
+import { FaHashtag, FaCalendar  } from 'react-icons/fa';
 
 
 export type AddQuestionModalProps = {
@@ -43,12 +43,12 @@ function AddQuestionModal({ handleAddQuestion }: AddQuestionModalProps) {
         },
         {
             type: 'number',
-            label: <><span className='mr-2 '><FaHashtag className="inline-block"  /></span>Number</>,
+            label: <div className='flex items-center ml-1'><span className='mr-2 '><FaHashtag className="inline-block"  /></span>Number</div>,
             description: 'For Number',
         },
         {
             type: 'date',
-            label: <><span className='mr-2 '><Date /></span>Date</>,
+            label: <div className='flex items-center ml-1'><span className='mr-2 '><FaCalendar/></span>Date</div>,
             description: 'For Date',
         },
         {

@@ -44,10 +44,10 @@ const FormCard = ({ form, onDelete, onClick}: FormCardProps) => {
         console.log("Link Copied...");
     };
 
-
+    const themeColor = "red";
     return (
         <div className='h-[302px] w-[250px] bg-white border rounded-3xl shadow-lg  hover:opacity-80 transition duration-200'>
-            <div className='flex justify-center items-center h-[210px] w-[248px] bg-gradient-to-br from-white via-tertiary  to-white rounded-t-3xl cursor-pointer'  onClick={onClick}>
+            <div className={`flex justify-center items-center h-[210px] w-[248px] bg-gradient-to-br from-white via-${themeColor}-200  to-white rounded-t-3xl cursor-pointer`}  onClick={onClick}>
                 <img src={form.coverImg} alt="logo3" className='h-24 w-24 rounded-full' />
             </div>
             <div className='w-full h-[80px] flex flex-row justify-between px-6 items-center cursor-pointer'>
