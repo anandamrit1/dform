@@ -30,7 +30,7 @@ const ViewDateAnswer: React.FC<QuestionProps> = ({ question, themeColor}) => {
                         onChange={(date) => form.setFieldValue(question.formFieldId, date)}
                         dateFormat="dd/MM/yyyy"
                         placeholderText="Select Date"
-                        className={`border w-1/3 border-gray-400 focus:border-${themeColor}-500 p-5 rounded-lg outline-none transition duration-200`}
+                        className={`border min-w-[190px] w-1/3 border-gray-400 focus:border-${themeColor}-500 p-5 rounded-lg outline-none transition duration-200`}
                         calendarClassName={`bg-${themeColor}-300`}
                         dayClassName=""
                     />
