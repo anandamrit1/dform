@@ -67,7 +67,7 @@ export function NumberAnswerComponent({ question }: NumberAnswerComponentProps) 
                 className="outline-none hover:bg-gray-100 rounded-md text-sm text-gray-400 w-5/6 p-2" >
                 {question.description ?? ""}
             </div>
-            <div className="flex w-5/6"> <input className='w-2/5 px-4 py-5 my-4 rounded-md border-[1px] border-gray-400 focus:border-gray-800 text-gray-400 focus:outline-none' placeholder='Your Answer' value={question?.properties ? question?.properties["placeholderText"] : ""} /> </div>
+            <div className="flex w-5/6"> <input className='w-2/5 min-w-[160px] px-4 py-5 my-4 rounded-md border-[1px] border-gray-400 focus:border-gray-800 text-gray-400 focus:outline-none' placeholder='Your Answer' value={question?.properties ? question?.properties["placeholderText"] : ""} /> </div>
         </div>
     </div>
 }

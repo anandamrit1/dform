@@ -19,7 +19,7 @@ const ViewNumberAnswer = ({ question, themeColor }: { question: FormField; theme
                 {required && <span className="text-xl text-red-500"> *</span>}
             </div>
             <div className='text-gray-400 pb-4' >{question.description ?? ""}</div>
-            <Field name={question.id} type="Number" placeholder={question.properties?.placeholderText ?? ""} className={`border w-1/3 border-gray-400 focus:border-${themeColor}-500 p-5 rounded-lg outline-none transition duration-200`} />
+            <Field name={question.id} type="Number" placeholder={question.properties?.placeholderText ?? ""} className={`border min-w-[190px] w-1/3 border-gray-400 focus:border-${themeColor}-500 p-5 rounded-lg outline-none transition duration-200`} />
             <div className="flex justify-start w-full">
                 <ErrorMessage name={question.id}>
                     {(msg: string) => (
