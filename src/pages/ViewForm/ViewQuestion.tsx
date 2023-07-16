@@ -34,11 +34,11 @@ const ViewQuestion: React.FC<QuestionProps> = ({ question, themeColor }) => {
             return <ViewNumberAnswer question={question} themeColor={themeColor} />
         case 'Date':
             return <ViewDateAnswer question={question} themeColor={themeColor} />
-        case 'upload':
+        case 'Upload':
             return <ViewUploadFileAnswer question={question} themeColor={themeColor} />
-        case 'walletConnect':
+        case 'FlowAddress':
             return <ViewWalletConnect question={question} themeColor={themeColor} />
-        case 'twitter':
+        case 'TwitterAccount':
             return <ViewTwitter question={question} themeColor={themeColor} />
         default:
             return <></>
