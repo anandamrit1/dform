@@ -4,7 +4,7 @@ import { IconButton } from '@mui/material'
 import { DeleteOutline } from '@mui/icons-material'
 import { FormField } from '../../types/Form'
 import Select from '../Select'
-// import DatePicker from 'react-datepicker';
+import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 export type DateAnswerEditableProps = {
@@ -89,7 +89,7 @@ export function DateAnswerComponent({ question }: DateAnswerComponentProps) {
                     />
                 </div>
             </div>
-            <div className="flex w-5/6"> <input className='w-2/5 min-w-[160px] px-4 py-5 my-4 rounded-md border-[1px] border-gray-400 focus:border-gray-800 text-gray-400 focus:outline-none' placeholder='Your Answer' value={question.properties["placeholder"]} /> </div>
+            <div className="flex w-5/6"> <input className='w-2/5 min-w-[160px] px-4 py-5 my-4 rounded-md border-[1px] border-gray-400 focus:border-gray-800 text-gray-400 focus:outline-none' placeholder='Your Answer' value={question.properties ?  question.properties["placeholderText"]: "" } /> </div>
         </div>
     </div>
 }

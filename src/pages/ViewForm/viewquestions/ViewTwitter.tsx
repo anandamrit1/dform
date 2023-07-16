@@ -1,4 +1,4 @@
-import { QuestionType } from '../../../types/Form'
+import { FormField } from '../../../types/Form'
 // import { useFormikContext} from 'formik';
 import {  Field, ErrorMessage } from 'formik';
 import { FaTwitter } from 'react-icons/fa';
@@ -6,7 +6,7 @@ import { FaTwitter } from 'react-icons/fa';
 
 
 
-const ViewTwitter = ({ question, themeColor }: { question: QuestionType; themeColor: string }) => {
+const ViewTwitter = ({ question, themeColor }: { question: FormField; themeColor: string }) => {
     
     const required = question.required;
     
@@ -27,7 +27,7 @@ const ViewTwitter = ({ question, themeColor }: { question: QuestionType; themeCo
             </div>
             <div className='text-gray-400 pb-4' >{question.description}</div>
             {/* <Field name={question.formFieldId} type="email" placeholder={question.properties.placeholder} className={`border border-gray-400 focus:border-${themeColor}-500 p-5 rounded-lg outline-none transition duration-200`} /> */}
-            <Field name={question.formFieldId}>
+            <Field name={question.id}>
             {() => (
                 <div onClick={addTwitter} className={`border min-w-[190px] w-[190px] bg-blue-500 cursor-pointer hover:opacity-80 focus:border-${themeColor}-500 p-3 rounded-lg outline-none transition duration-200`}>
                     <div className="font-semibold flex items-center space-x-2 justify-center text-white">
@@ -38,7 +38,7 @@ const ViewTwitter = ({ question, themeColor }: { question: QuestionType; themeCo
             )}
             </Field>
             <div className="flex justify-start w-full">
-                <ErrorMessage name={question.formFieldId}>
+                <ErrorMessage name={question.id}>
                     {(msg: string) => (
                         <div className={`text-red-500 text-sm`}>
                             {msg}

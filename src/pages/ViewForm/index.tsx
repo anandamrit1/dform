@@ -6,7 +6,7 @@ import { RiSendPlane2Line } from 'react-icons/ri';
 // import { FormField } from '../../../types/Form'
 import { Formik, Form } from 'formik';
 import { useEffect, useState } from 'react';
-import * as fcl from '@onflow/fcl';
+// import * as fcl from '@onflow/fcl';
 import { mockForm, mockQuestions } from '../../utils/constants';
 import AccesGate from './AccesGate';
 import { QuestionsValidationSchema } from '../../utils/QuestionValidationSchema';
@@ -91,54 +91,7 @@ const index = () => {
     }, [user, form])
 
     const validationSchema = QuestionsValidationSchema(questions)
-                else if (element.type === 'multipleOption') {
-                    element.required
-                        ? yupSchema = Yup.array().min(1, 'Please select at least one option').required('Required')
-                        : yupSchema = Yup.array()
-                }
-                else if (element.type === 'email') {
-                    element.required
-                        ? yupSchema = Yup.string().required('Requied').email('Must be a valid email address')
-                        : yupSchema = Yup.string().email('Must be a valid email address')
-                }
-                else if (element.type === 'link') {
-                    element.required
-                        ? yupSchema = Yup.string().required('Requied').url('Must be a valid URL')
-                        : yupSchema = Yup.string().url('Must be a valid URL')
-                }
-                else if (element.type === 'number') {
-                    element.required
-                        ? yupSchema = Yup.number().required('Requied')
-                        : yupSchema = Yup.number().nullable().typeError('Invalid Number')
-                }
-                else if (element.type === 'date') {
-                    element.required
-                        ? yupSchema = Yup.date().required('Date is required').typeError('Invalid date')
-                        : yupSchema = Yup.date().nullable().typeError('Invalid date')
-                }
-                else if (element.type === 'upload') {
-                    element.required
-                        ? yupSchema = Yup.mixed().required('Required')
-                        : yupSchema = Yup.mixed()
-                }
-                else if (element.type === 'walletConnect') {
-                    element.required
-                        ? yupSchema = Yup.boolean().oneOf([true], 'Wallet address and Signature are required').required('Required')
-                        : yupSchema = Yup.boolean().nullable()
-                }
-                else if (element.type === 'twitter') {
-                    element.required
-                        ? yupSchema = Yup.boolean().oneOf([true], 'Wallet address and Signature are required').required('Required')
-                        : yupSchema = Yup.boolean().nullable()
-                }
-                else {
-                    yupSchema = Yup.string();
-                }
-                return [element.formFieldId, yupSchema];
-            })
-        )
-    );
-
+                
     const initialValues: FormValues = questions ? Object.fromEntries(
         questions.map((element) => [element.id, ''])
     ) : {}
@@ -177,7 +130,7 @@ const index = () => {
                                 <ViewQuestion key={index} question={question} themeColor={form?.backgroundColor ?? "green"} />
                             ))}
                             <div className="flex w-full justify-end">
-                                <button type="submit" disabled={!isValid || !dirty} className={`bg-${form1.backgroundColor}-600 text-white flex items-center gap-2 p-2.5 rounded-xl font-bold px-6 ${(!isValid || !dirty) ? "opacity-60" : "opacity-100"} transition duration-200 my-4 mb-10 border-2 hover:border-${form1.backgroundColor}-600 border-white `}>
+                                <button type="submit" disabled={!isValid || !dirty} className={`bg-${form.backgroundColor}-600 text-white flex items-center gap-2 p-2.5 rounded-xl font-bold px-6 ${(!isValid || !dirty) ? "opacity-60" : "opacity-100"} transition duration-200 my-4 mb-10 border-2 hover:border-${form.backgroundColor}-600 border-white `}>
                                     Submit
                                     <RiSendPlane2Line className="text-white" />
                                 </button>

@@ -1,4 +1,4 @@
-import { QuestionType } from '../../../types/Form'
+import { FormField } from '../../../types/Form'
 import { useFormikContext} from 'formik';
 import {  Field, ErrorMessage } from 'formik';
 import  { useRef,useState  } from 'react';
@@ -6,9 +6,9 @@ import { useDropzone } from 'react-dropzone';
 import { FiUpload } from 'react-icons/fi';
 
 
-const ViewUploadFileAnswer = ({ question, themeColor }: { question: QuestionType; themeColor: string }) => {
+const ViewUploadFileAnswer = ({ question, themeColor }: { question: FormField; themeColor: string }) => {
 
-    const required = question.required;
+    const required = question?.required ?? false;
     
     const { setFieldValue } = useFormikContext();
 
@@ -17,13 +17,13 @@ const ViewUploadFileAnswer = ({ question, themeColor }: { question: QuestionType
   
     const handleDrop = (acceptedFiles: File[]) => {
       setSelectedFile(acceptedFiles[0]);
-      setFieldValue(question.formFieldId, acceptedFiles[0]); // Update formik field value
+      setFieldValue(question.id, acceptedFiles[0]); // Update formik field value
     };
 
     const handleDeleteFile = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         setSelectedFile(null);
-        setFieldValue(question.formFieldId, null); // Clear formik field value
+        setFieldValue(question.id, null); // Clear formik field value
     };
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop: handleDrop });
@@ -38,7 +38,7 @@ const ViewUploadFileAnswer = ({ question, themeColor }: { question: QuestionType
             <div className={`relative ${selectedFile ? ' ' : 'cursor-pointer'} hover:bg-${themeColor}-100 `}>
                 <div
                     {...getRootProps()} className={`border-dashed border text-center flex items-center justify-center border-gray-400 p-4 sm:p-10 rounded-lg outline-none transition duration-200 ${isDragActive ? `border-${themeColor}-500` : '' }`} >
-                    <Field name={question.formFieldId}>
+                    <Field name={question.id}>
                         {() => (
                             <>
                                 <input {...getInputProps()} ref={fileInputRef} className="hidden" />
@@ -65,7 +65,7 @@ const ViewUploadFileAnswer = ({ question, themeColor }: { question: QuestionType
             </div>
 
             <div className="flex justify-start w-full">
-                <ErrorMessage name={question.formFieldId}>
+                <ErrorMessage name={question.id}>
                     {(msg: string) => (
                         <div className={`text-red-500 text-sm`}>
                             {msg}
