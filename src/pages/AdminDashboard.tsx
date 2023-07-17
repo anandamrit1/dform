@@ -9,9 +9,11 @@ import { DEFAULT_SHORT_ANSWER_QUESTION, newEmptyForm } from '../utils/constants'
 import { CreateFormRequestBody, Form, FormField } from '../types/Form';
 import { generateId } from '../utils/GenerateId';
 import Skeleton from 'react-loading-skeleton';
+import loadingFast from '../Images/loading-fast.gif'
 
 function AdminDashboard() {
   const [navbarShadow, setNavbarShadow] = useState(false);
+  const [formCreating, setFormCreating] = useState(false);
   const [forms, setForms] = useState<Form[]>();
   const user = "User";
   const navigate = useNavigate();
@@ -52,6 +54,7 @@ function AdminDashboard() {
   }, [user]);
   
   const handleAddForm = async() => {
+    setFormCreating(true)
     const formId = "form-" + generateId()
     const newForm: Form = {
       id: formId,
@@ -74,6 +77,7 @@ function AdminDashboard() {
     } catch(e) {
       console.log(e)
     }
+    setFormCreating(false)
   };
 
 
@@ -85,37 +89,48 @@ function AdminDashboard() {
 
   return (
     <div className="w-full flex flex-col items-center justify-center" >
-      <div className='bg-white w-full h-[110px]'></div>
-      <Dashboard_Navbar navbarShadow={navbarShadow} />
-      <Comp1 />
-      <div className="grid gap-y-8 gap-x-8 grid-cols-custom ">
-        <div className='h-[302px] w-[250px] bg-white border rounded-3xl shadow-lg hover:opacity-90 transition duration-200 cursor-pointer' onClick={handleAddForm}>
-          <div className="flex flex-col items-center justify-center space-y-6 h-full">
-            <div className="h-[75px] w-[75px] rounded-[50%] bg-green-500 p-[3px]">
-              <div className="relative flex h-full w-full items-center justify-center rounded-[50%] bg-white">
-                <div className="absolute h-[25px] w-[3px] rounded bg-green-500">
-                </div>
-                <div className="absolute h-[3px] w-[25px] rounded bg-green-500">
-                </div>
-              </div>
-            </div>
-            <div className='text-gray-400'>Create DeForm</div>
+      {
+        formCreating ? (
+          <div className='flex justify-center items-center w-1/3 h-screen'>
+            <img src={loadingFast} alt="loading" />
           </div>
-        </div>
+        )
+          :
+          (
+            <div className='w-full flex flex-col items-center justify-center'>
+              <div className='bg-white w-full h-[110px]'></div>
+              <Dashboard_Navbar navbarShadow={navbarShadow} />
+              <Comp1 />
+              <div className="grid gap-y-8 gap-x-8 grid-cols-custom ">
+                <div className='h-[302px] w-[250px] bg-white border rounded-3xl shadow-lg hover:opacity-90 transition duration-200 cursor-pointer' onClick={handleAddForm}>
+                  <div className="flex flex-col items-center justify-center space-y-6 h-full">
+                    <div className="h-[75px] w-[75px] rounded-[50%] bg-green-500 p-[3px]">
+                      <div className="relative flex h-full w-full items-center justify-center rounded-[50%] bg-white">
+                        <div className="absolute h-[25px] w-[3px] rounded bg-green-500">
+                        </div>
+                        <div className="absolute h-[3px] w-[25px] rounded bg-green-500">
+                        </div>
+                      </div>
+                    </div>
+                    <div className='text-gray-400'>Create DeForm</div>
+                  </div>
+                </div>
 
-        {
-        forms? forms.map((form, index) => (
-          <FormCard key={index} form={form} onClick={() => navigate(`/edit/${form.id}`)} onDelete={handleDeleteForm} />
-        ))
-        : <>
-        <Skeleton style={{ width: "250px", height: "302px"}} />
-        <Skeleton style={{ width: "250px", height: "302px"}} />
-        <Skeleton style={{ width: "250px", height: "302px"}} />
-        </>
-      }
+                {
+                  forms ? forms.map((form, index) => (
+                    <FormCard key={index} form={form} onClick={() => navigate(`/edit/${form.id}`)} onDelete={handleDeleteForm} />
+                  ))
+                    : <>
+                      <Skeleton style={{ width: "250px", height: "302px" }} />
+                      <Skeleton style={{ width: "250px", height: "302px" }} />
+                      <Skeleton style={{ width: "250px", height: "302px" }} />
+                    </>
+                }
 
-      </div>
-      <div className="mb-6"></div>
+              </div>
+              <div className="mb-6"></div>
+            </div>
+          )}
     </div>
   )
 }
