@@ -1,3 +1,60 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-radial-gradient {
+  /* background: radial-gradient(circle, rgb(253, 230, 138), #fff); */
+  background: rgb(246, 255, 69);
+  background: radial-gradient(circle, rgba(246, 255, 69, 0.6657256652661064) 3%, rgba(255, 255, 255, 0.9934567577030813) 13%);
+
+}
+
+[contenteditable=true]:empty:before {
+  content: attr(placeholder);
+  display: block;
+  color: #aaa;
+}
+
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #fff;
+}
+
+input:checked ~ .toggle {
+  background-color: rgb(31 41 55);
+}
+
+.grid-cols-custom {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+@media (max-width: 1800px) {
+  .grid-cols-custom {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 1500px) {
+  .grid-cols-custom {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1200px) {
+  .grid-cols-custom {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .grid-cols-custom {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-cols-custom {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

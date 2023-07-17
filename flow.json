@@ -1,0 +1,51 @@
+{
+	"contracts": {
+		"FlowForm": {
+			"source": "./src/cadence/contracts/FlowForm.cdc",
+			"aliases": {
+				"emulator": "f8d6e0586b0a20c7", 
+				"testnet" : "f512900e47f7d9bb"
+			}
+		},
+		"MetadataViews": {
+			"source": "./src/cadence/contracts/MetadataViews.cdc",
+			"aliases": {
+				"emulator": "f8d6e0586b0a20c7",
+				"testnet": "631e88ae7f1d7c20"
+			}
+		},
+		"NonFungibleToken": {
+			"source": "./src/cadence/contracts/NonFungibleToken.cdc",
+			"aliases": {
+				"emulator": "f8d6e0586b0a20c7", 
+				"testnet": "631e88ae7f1d7c20"
+			}
+		},
+		"FungibleToken": {
+			"source": "./src/cadence/contracts/FungibleToken.cdc",
+			"aliases": {
+				"emulator": "ee82856bf20e2aa6", 
+				"testnet": "9a0766d93b6608b7"
+			}
+		}
+	},
+	"networks": {
+		"emulator": "127.0.0.1:3569",
+		"mainnet": "access.mainnet.nodes.onflow.org:9000",
+		"testnet": "access.devnet.nodes.onflow.org:9000"
+	},
+	"accounts": {
+		"admin": {
+			"address": "f512900e47f7d9bb", 
+			"key": "3abe9143e718bf1949cb2709dd468834aff79eb81be9bfb14915e62f120a3e9f"
+		}
+	},
+	"deployments": {
+		"testnet": {
+			"admin" : [
+				"FlowForm"
+			]
+		}
+	}
+}
+
