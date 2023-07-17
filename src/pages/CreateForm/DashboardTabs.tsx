@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import QuestionsList from './QuestionList';
 import Settings from './Settings';
 import Responses from './Responses';
+import SuccessPage from './SuccessPage';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -51,8 +52,9 @@ export default function DashboardTabs() {
             <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '50%', margin: 'auto' }}>
                 <Tabs centered value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Questions" {...a11yProps(0)} />
-                    <Tab label="Responses" {...a11yProps(1)} />
-                    <Tab label="Settings" {...a11yProps(2)} />
+                    <Tab label="Success Page" {...a11yProps(1)} />
+                    <Tab label="Responses" {...a11yProps(2)} />
+                    <Tab label="Settings" {...a11yProps(3)} />
                 </Tabs>
             </Box>
             <div className=" fixed w-[10000px] h-2/3 -top-80 -rotate-6 -left-96 opacity-30 -z-40" 
@@ -62,11 +64,14 @@ export default function DashboardTabs() {
             ></div>
             <CustomTabPanel value={value} index={0}>
                 <QuestionsList />
-            </CustomTabPanel>
+            </CustomTabPanel>            
             <CustomTabPanel value={value} index={1}>
-                <Responses />
+                <SuccessPage />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
+                <Responses />
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={3}>
                 <Settings />
             </CustomTabPanel>
         </Box>
