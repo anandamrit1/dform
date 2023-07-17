@@ -11,6 +11,7 @@ import { AxiosInstance } from "axios";
 import { omit } from 'lodash';
 import { debounce } from "../../utils/debounce";
 import ShareFormModal from "../../components/ShareFormModal";
+import ThemeModal from "../../components/themeModal";
 
 export type AdminFormType = Form & {
     feilds?: FormField[]
@@ -99,6 +100,19 @@ function CreateForm() {
                             url={`https://taleflow.vercel.app/form/${window.location.pathname.split('/')[2]}`}
                             onClose={() => setShowShareModal(false)}
                         />
+                    </div>
+                </div>
+            )}
+            
+        {showThemeSidebar && (
+                <div>
+                    <div
+                        onClick={() => setShowThemeSidebar(false)}
+                        className="absolute top-0 left-0 w-screen h-screen bg-gray-600 opacity-50"
+                    ></div>
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+
+                        <ThemeModal onClose={() => setShowThemeSidebar(false)} />
                     </div>
                 </div>
             )}
