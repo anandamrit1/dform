@@ -20,7 +20,7 @@ export type FormField = {
 }
 
 export type FieldType = 'ShortText' | 'LongText' | 'Number' | 'Rating' | 'MultipleChoice' | 'FlowAddress' |
-    'TwitterAccount' | 'Upload' | 'Date' | 'PhysicalAddress' | 'email' | 'link'
+    'TwitterAccount' | 'Upload' | 'Date' | 'PhysicalAddress' | 'email' | 'link' | 'walletConnect'
 
 export type FormFeildProperty = {
     id: string;
