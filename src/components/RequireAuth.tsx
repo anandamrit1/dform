@@ -28,7 +28,7 @@ function RequireAuth({ children }: { children: React.ReactNode}) {
     const performLoginChecks = async () => {
         try {
             let client = axios.create({
-                baseURL: "http://localhost:5200",
+                baseURL: "http://localhost:5000",
                 withCredentials: true,
             });
 

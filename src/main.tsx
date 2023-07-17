@@ -6,7 +6,5 @@ import './index.css'
 import 'react-loading-skeleton/dist/skeleton.css'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
     <App />
-  </React.StrictMode>,
 )

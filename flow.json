@@ -1,11 +1,31 @@
 {
 	"contracts": {
-		"FlowMeiumContract": {
-			"source": "./cadence/contracts/FlowMeiumContract.cdc",
+		"FlowForm": {
+			"source": "./src/cadence/contracts/FlowForm.cdc",
+			"aliases": {
+				"emulator": "f8d6e0586b0a20c7", 
+				"testnet" : "f512900e47f7d9bb"
+			}
+		},
+		"MetadataViews": {
+			"source": "./src/cadence/contracts/MetadataViews.cdc",
 			"aliases": {
 				"emulator": "f8d6e0586b0a20c7",
-				"testnet": "44123a11bae69029",
-				"mainnet": "0xee837a2c3d2e13a4"
+				"testnet": "631e88ae7f1d7c20"
+			}
+		},
+		"NonFungibleToken": {
+			"source": "./src/cadence/contracts/NonFungibleToken.cdc",
+			"aliases": {
+				"emulator": "f8d6e0586b0a20c7", 
+				"testnet": "631e88ae7f1d7c20"
+			}
+		},
+		"FungibleToken": {
+			"source": "./src/cadence/contracts/FungibleToken.cdc",
+			"aliases": {
+				"emulator": "ee82856bf20e2aa6", 
+				"testnet": "9a0766d93b6608b7"
 			}
 		}
 	},
@@ -15,38 +35,15 @@
 		"testnet": "access.devnet.nodes.onflow.org:9000"
 	},
 	"accounts": {
-		"emulator-account": {
-			"fromFile": "./emulator.private.json"
-		},
-		"talesv1": {
-			"address": "44123a11bae69029",
-			"key": {
-				"type": "file",
-				"location": "talesv1.pkey"
-			}
-		},
-		"testaccountdhalla": {
-			"address": "ee837a2c3d2e13a4",
-			"key": {
-				"type": "file",
-				"location": "testaccountdhalla.pkey"
-			}
+		"admin": {
+			"address": "f512900e47f7d9bb", 
+			"key": "3abe9143e718bf1949cb2709dd468834aff79eb81be9bfb14915e62f120a3e9f"
 		}
 	},
 	"deployments": {
-		"emulator": {
-			"emulator-account": [
-				"FlowMeiumContract"
-			]
-		},
 		"testnet": {
-			"talesv1": [
-				"FlowMeiumContract"
-			]
-		},
-		"mainnet": {
-			"testaccountdhalla": [
-				"FlowMeiumContract"
+			"admin" : [
+				"FlowForm"
 			]
 		}
 	}

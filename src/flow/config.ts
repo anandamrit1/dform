@@ -2,7 +2,7 @@ import { config } from '@onflow/fcl'
 import flowJSON from '../../flow.json'
 import { ACCESS_NODE_URLS } from '../utils/constants'
 
-const flowNetwork = 'local'
+const flowNetwork = 'testnet'
 
 console.log('Dapp running on network:', flowNetwork)
 

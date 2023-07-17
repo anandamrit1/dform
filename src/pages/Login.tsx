@@ -26,8 +26,8 @@ function Login() {
 
   const performLoginChecks = async () => {
     try {
-      let client = axios.create({
-        baseURL: "http://localhost:5200",
+      const client = axios.create({
+        baseURL: "http://localhost:5000",
         withCredentials: true,
       });
 
@@ -35,7 +35,7 @@ function Login() {
       console.log("Fetching user", res.data, res.status);
       if (res.status === 200) navigate("/dashboard");
     } catch (e) {
-      console.log(e);
+      console.log("Fetching User Login Error: ", e);
       await magic.user.logout();
     }
     
