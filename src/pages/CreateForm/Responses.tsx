@@ -4,9 +4,6 @@ import { useRecoilValue } from 'recoil';
 import { adminFormAtom } from '.';
 import Skeleton from 'react-loading-skeleton';
 
-const rows: any[] = [
-];
-
 export default function DataGridDemo() {
   const form = useRecoilValue(adminFormAtom)
 
@@ -17,6 +14,15 @@ export default function DataGridDemo() {
       width: 150,
     }
   })
+
+  const rows = form?.response?.map((response) => {
+    const row: any = {}
+    form?.feilds?.forEach((question) => {
+      row[question.id] = response?.data[question.id] ?? ""
+    })
+    row.id = response.id
+    return row
+  }) ?? []
 
   if (!form) return <ResponseSkeleton />
   return (

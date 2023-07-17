@@ -13,13 +13,49 @@ import { debounce } from "../../utils/debounce";
 import ShareFormModal from "../../components/ShareFormModal";
 
 export type AdminFormType = Form & {
-    feilds?: FormField[]
+    feilds?: FormField[],
+    response?: {
+        id: string,
+        data: Record<string, string>
+    }[]
 }
 
 export const adminFormAtom = atom<AdminFormType | undefined>({
     key: 'adminFormAtom',
     default: undefined
 })
+
+const updateFormHandler = async (form: AdminFormType, apiClient: AxiosInstance) => {
+    const formWithoutFields: Form = {
+        id: form.id,
+        backgroundColor: form?.backgroundColor,
+        backgroundUrl: form?.backgroundUrl,
+        description: form?.description,
+        isCaptchaEnabled: false,
+        isEmailCopyOfResponseEnabled: false,
+        isPublished: false,
+        metadata: form?.metadata ?? {}
+    }
+
+    const updatedFields = form?.feilds!.map((f) => {
+        const p = omit(f.properties, ['formFeildId', 'formId'])
+        const fr = omit(f, 'formId')
+
+        return {
+            ...fr,
+            properties: p
+        }
+    });
+
+    const res = await apiClient.post("/form/update", {
+        id: form.id,
+        form: formWithoutFields,
+        feilds: updatedFields
+    })
+
+    const data = await res.data;
+    console.log(data)
+}
 
 function CreateForm() {
     const [form, setForm] = useRecoilState(adminFormAtom);
@@ -41,6 +77,15 @@ function CreateForm() {
         getFormDetails()
     }, [formId])
 
+    const delaySaveToDb = useCallback(debounce((form) => {
+        updateFormHandler(form, apiClient)
+    }, 2000), [apiClient]);
+
+    useEffect(() => {
+        if (form) {
+            delaySaveToDb(form)
+        }
+    }, [form])
 
     return (
         <>

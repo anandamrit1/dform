@@ -15,6 +15,7 @@ import { AxiosInstance } from 'axios';
 import { debounce } from '../../utils/debounce';
 import { useAxios } from '../../utils/axios';
 import Skeleton from "react-loading-skeleton";
+import FormImage from '../../components/FormImage';
 
 
 export const questionListAtom = atom<FormField[] | undefined>({
@@ -22,37 +23,7 @@ export const questionListAtom = atom<FormField[] | undefined>({
     default: undefined
 });
 
-const updateFormHandler = async (form: AdminFormType, apiClient: AxiosInstance) => {
-    const formWithoutFields: Form = {
-        id: form.id,
-        backgroundColor: form?.backgroundColor,
-        backgroundUrl: "url",
-        description: form?.description,
-        isCaptchaEnabled: false,
-        isEmailCopyOfResponseEnabled: false,
-        isPublished: false,
-        metadata: {}
-    }
 
-    const updatedFields = form?.feilds!.map((f) => {
-        const p = omit(f.properties, ['formFeildId', 'formId'])
-        const fr = omit(f, 'formId')
-
-        return {
-            ...fr,
-            properties: p
-        }
-    });
-
-    const res = await apiClient.post("/form/update", {
-        id: form.id,
-        form: formWithoutFields,
-        feilds: updatedFields
-    })
-
-    const data = await res.data;
-    console.log(data)
-}
 
 
 interface QuestionsListProps {
@@ -63,19 +34,11 @@ const QuestionsList: React.FC<QuestionsListProps> = () => {
     const [form, setForm] = useRecoilState(adminFormAtom);
     const [addQuestionModal, setAddQuestionModal] = useState(false);
     const [description, setDescription] = useState("");
+    const [formImage, setFormImage] = useState<File | null>(null);
+
     const apiClient = useAxios()
 
     const questions = form?.feilds
-
-    const delaySaveToDb = useCallback(debounce((form) => {
-        updateFormHandler(form, apiClient)
-    }, 2000), [apiClient]);
-
-    useEffect(() => {
-        if (form) {
-            delaySaveToDb(form)
-        }
-    }, [form])
 
     const handleQuestionChange = (id: string, question: FormField) => {
         const updatedQuestions = form?.feilds?.map((q) => {
@@ -119,6 +82,9 @@ const QuestionsList: React.FC<QuestionsListProps> = () => {
                     form != undefined ?
                         <>
                             <div id="form-metadata" className="flex flex-col w-full items-center gap-2 py-6 px-10">
+                                <div className="flex flex-row w-full justify-start">
+                                    <FormImage />
+                                </div>
                                 <ContentEditableInput
                                     placeholder='Form Title'
                                     value={form?.description ?? ""}

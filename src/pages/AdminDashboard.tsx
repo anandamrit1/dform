@@ -5,7 +5,7 @@ import Dashboard_Navbar from '../components/Dashboard_Navbar';
 import { useNavigate } from 'react-router-dom';
 import { useAxios } from '../utils/axios';
 import { v4 as uuidv4 } from 'uuid';
-import { DEFAULT_SHORT_ANSWER_QUESTION, newEmptyForm } from '../utils/constants';
+import { DEFAULT_SHORT_ANSWER_QUESTION } from '../utils/constants';
 import { CreateFormRequestBody, Form, FormField } from '../types/Form';
 import { generateId } from '../utils/GenerateId';
 import Skeleton from 'react-loading-skeleton';
@@ -52,6 +52,7 @@ function AdminDashboard() {
   }, [user]);
   
   const handleAddForm = async() => {
+
     const formId = "form-" + generateId()
     const newForm: Form = {
       id: formId,
@@ -99,7 +100,7 @@ function AdminDashboard() {
                 </div>
               </div>
             </div>
-            <div className='text-gray-400'>Create DeForm</div>
+            <div className='text-gray-400'>Create new form</div>
           </div>
         </div>
 
@@ -126,9 +127,9 @@ const Comp1 = () => {
   return (
     <div className="flex justify-between items-center w-full p-5 sm:px-9 py-6 sm:pr-14">
       <div className="font-bold text-xl">
-        DeForm's Workspace
+        FlowForm's Workspace
       </div>
-      <div className="flex -space-x-3 hover:opacity-80 cursor-pointer justify-center items-center">
+      {/* <div className="flex -space-x-3 hover:opacity-80 cursor-pointer justify-center items-center">
         <div className="bg-gray-200 rounded-full w-12 h-12 flex items-center justify-center font-thin">
           <div className="h-[24px] w-[24px]"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fillRule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clipRule="evenodd"></path></svg></div>
         </div>
@@ -140,7 +141,7 @@ const Comp1 = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }
