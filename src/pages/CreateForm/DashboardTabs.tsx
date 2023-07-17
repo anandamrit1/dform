@@ -59,7 +59,7 @@ export default function DashboardTabs() {
             </Box>
             <div className=" fixed w-[10000px] h-2/3 -top-80 -rotate-6 -left-96 opacity-30 -z-40" 
             style={{ 
-                background: `radial-gradient(100% 50% at 50% 50%, ${"red"} 0%, #ffffff 100%)`,
+                background: `radial-gradient(100% 50% at 50% 50%, ${"green"} 0%, #ffffff 100%)`,
             }} 
             ></div>
             <CustomTabPanel value={value} index={0}>

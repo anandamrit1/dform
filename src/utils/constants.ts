@@ -160,7 +160,7 @@ export const DEFAULT_TWITTER_ANSWER_QUESTION: FormField = {
 
 export const mockForm = {
     "thumbnailUrl": "logo3",
-    "backgroundColor": "red",
+    "backgroundColor": "green",
     "backgroundUrl": null,
     "font": "",
     "title": "Testing Form",

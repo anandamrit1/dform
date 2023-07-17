@@ -8,6 +8,7 @@ function SuccessPage() {
     const [form, setForm] = useRecoilState(adminFormAtom);
     const [successMsg, setSuccessMsg] = useState("Thanks for submitting the form.")
 
+    const imageUrl = form?.backgroundUrl ?? "https://assets.deform.cc/default/bg1.jpg"
     useEffect(() => {
         console.log("hello")
         if (form && form?.metadata && form.metadata["success_page"] && form.metadata["success_page"]["msg"]) {
@@ -30,7 +31,7 @@ function SuccessPage() {
                     <>
                         <div id="form-metadata" className="flex flex-col w-full items-center gap-2 py-6 px-10">
                             <div className="flex flex-row w-full justify-center">
-                                <img src={"https://assets.deform.cc/default/logo15.png"} alt="logo3" className='h-20 w-20 rounded-full' />
+                                <img src={imageUrl} alt="logo3" className='h-20 w-20 rounded-full' />
                             </div>
                             <ContentEditableInput
                                 placeholder='Form Title'

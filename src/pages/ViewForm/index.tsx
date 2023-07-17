@@ -75,9 +75,9 @@ const index = () => {
         } else if (form?.metadata && form.metadata["settings"] && form.metadata["settings"]["accessGateContract"]) {
             getTwitterUser()
         } else if (form) {
-                setUser({ loggedIn: true })
-                setVerified("VERIFIED")
-            }
+            setUser({ loggedIn: true })
+            setVerified("VERIFIED")
+        }
     }, [form])
 
     const validationSchema = QuestionsValidationSchema(questions)
@@ -109,16 +109,16 @@ const index = () => {
     };
 
     if (form && acceptingResponses == true && (!user.loggedIn || (user.loggedIn && verified != "VERIFIED"))) {
-        return <AccesGate 
-                    verified={verified} 
-                    setVerified={setVerified} 
-                    user={user}
-                    imageUrl={imageUrl}
-                    accessGateTwitter={form?.metadata && form?.metadata["settings"] && form?.metadata["settings"]["accessGateTwitter"]}
-                    accessGateContract={form?.metadata && form?.metadata["settings"] && form?.metadata["settings"]["accessGateContract"]} 
-                    accessGateFind={form?.metadata && form?.metadata["settings"] && form?.metadata["settings"]["accessGateFind"]} 
-                    accessGateNft={form?.metadata && form?.metadata["settings"] && form?.metadata["settings"]["accessGateNft"]} 
-                />
+        return <AccesGate
+            verified={verified}
+            setVerified={setVerified}
+            user={user}
+            imageUrl={imageUrl}
+            accessGateTwitter={form?.metadata && form?.metadata["settings"] && form?.metadata["settings"]["accessGateTwitter"]}
+            accessGateContract={form?.metadata && form?.metadata["settings"] && form?.metadata["settings"]["accessGateContract"]}
+            accessGateFind={form?.metadata && form?.metadata["settings"] && form?.metadata["settings"]["accessGateFind"]}
+            accessGateNft={form?.metadata && form?.metadata["settings"] && form?.metadata["settings"]["accessGateNft"]}
+        />
     }
 
     console.log(acceptingResponses)
@@ -132,30 +132,30 @@ const index = () => {
 
             <div className={`flex flex-col z-10 bg-white justify-center items-center border shadow-2xl shadow-${backgroundColor}-300 w-full rounded-2xl shadow-indigo-00 p-8 mt-5 sm:mt-12 max-w-[760px] mb-[75px] md:mb-[150px] mx-5 sm:mx-12`}>
                 {
-                    acceptingResponses == false ? <ViewSuccessPage metadata={{"success_page": {"msg": "Form is not accepting responses"}}} imageUrl={imageUrl} />
-                    :submitted ? <ViewSuccessPage metadata={form?.metadata!} imageUrl={imageUrl} /> : form && questions ? <><div className="flex flex-col w-full space-y-5 mb-2 ">
-                        <div className="flex flex-row w-full justify-start">
-                            <img src={form?.backgroundUrl} alt="logo3" className='h-20 w-20 rounded-full' />
+                    form && acceptingResponses == false ? <ViewSuccessPage metadata={{ "success_page": { "msg": "Form is not accepting responses" } }} imageUrl={imageUrl} />
+                        : form && submitted ? <ViewSuccessPage metadata={form?.metadata!} imageUrl={imageUrl} /> : form && questions ? <><div className="flex flex-col w-full space-y-5 mb-2 ">
+                            <div className="flex flex-row w-full justify-start">
+                                <img src={form?.backgroundUrl} alt="logo3" className='h-20 w-20 rounded-full' />
+                            </div>
+                            <div className="flex flex-row w-full text-3xl font-bold ">
+                                {form?.description}
+                            </div>
                         </div>
-                        <div className="flex flex-row w-full text-3xl font-bold ">
-                            {form?.description}
-                        </div>
-                    </div>
-                        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} >
-                            {({ isValid, dirty }) => (
-                                <MyForm className='w-full'>
-                                    {questions.map((question, index) => (
-                                        <ViewQuestion key={index} question={question} themeColor={backgroundColor} />
-                                    ))}
-                                    <div className="flex w-full justify-end">
-                                        <button type="submit" disabled={!isValid || !dirty} className={`bg-${form.backgroundColor}-600 text-white flex items-center gap-2 p-2.5 rounded-xl font-bold px-6 ${(!isValid || !dirty) ? "opacity-60" : "opacity-100"} transition duration-200 my-4 mb-10 border-2 hover:border-${form.backgroundColor}-600 border-white `}>
-                                            Submit
-                                            {submitLoading ? <CircularProgress color='inherit' /> : <RiSendPlane2Line className="text-white" />}
-                                        </button>
-                                    </div>
-                                </MyForm>
-                            )}
-                        </Formik></> : <QuestionsPageSkeleton />
+                            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} >
+                                {({ isValid, dirty }) => (
+                                    <MyForm className='w-full'>
+                                        {questions.map((question, index) => (
+                                            <ViewQuestion key={index} question={question} themeColor={backgroundColor} />
+                                        ))}
+                                        <div className="flex w-full justify-end">
+                                            <button type="submit" disabled={!isValid || !dirty} className={`bg-${form.backgroundColor}-600 text-white flex items-center gap-2 p-2.5 rounded-xl font-bold px-6 ${(!isValid || !dirty) ? "opacity-60" : "opacity-100"} transition duration-200 my-4 mb-10 border-2 hover:border-${form.backgroundColor}-600 border-white `}>
+                                                Submit
+                                                {submitLoading ? <CircularProgress color='inherit' /> : <RiSendPlane2Line className="text-white" />}
+                                            </button>
+                                        </div>
+                                    </MyForm>
+                                )}
+                            </Formik></> : <QuestionsPageSkeleton />
                 }
 
                 <div>Powered by <span className='font-bold' >flowforms</span></div>

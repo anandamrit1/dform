@@ -56,9 +56,8 @@ const QuestionsList: React.FC<QuestionsListProps> = () => {
     };
 
     const handleAddQuestion = (type: FieldType) => {
-        const newQuestion = GetDefaultQuestion(type);
-        newQuestion.id = generateId();
-        if (newQuestion.properties) newQuestion.properties.id = generateId();
+        let newQuestion = {...GetDefaultQuestion(type), id: generateId()};
+        if (newQuestion.properties) newQuestion = {...newQuestion, properties: {...newQuestion.properties, id: generateId()}};
         const updatedForm = { ...form, feilds: [...form?.feilds!, newQuestion], id: form!.id }
         console.log("updatedFrom", updatedForm)
         setForm(updatedForm);
@@ -69,6 +68,7 @@ const QuestionsList: React.FC<QuestionsListProps> = () => {
         if (form?.feilds && form?.feilds?.length > 1) {
             const updatedQuestions = form.feilds.filter(q => q.id != id)
             const updatedForm = { ...form, feilds: updatedQuestions, id: form!.id }
+            console.log("updatedFrom", updatedForm)
             setForm(updatedForm);
         }
     }, [])
