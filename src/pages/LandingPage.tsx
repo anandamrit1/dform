@@ -40,7 +40,7 @@ function LandingPage() {
     return (
         <div className='w-full  flex flex-col items-center'>
             <Navbar/>
-            <div className=" bg-gradient-to-b from-red-300 bg-opacity-80 w-full h-screen flex flex-col justify-center items-center" >
+            <div className=" bg-gradient-to-b from-green-200 bg-opacity-80 w-full h-screen flex flex-col justify-center items-center" >
                 <div className="text-8xl font-bold mt-32" >FlowForms </div>
                 <div className="text-6xl font-bold mt-6">Next-Gen Surveys & Forms</div>
                 <div className="mt-12 flex flex-wrap max-w-[580px] justify-center items-center text-center text-xl text-gray-500"> Discover the Ultimate Survey Creation Tool: Gain Deep Insights into Your Audience and Community Effortlessly.</div>
