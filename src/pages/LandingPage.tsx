@@ -62,7 +62,7 @@ const Navbar = () => {
                 <img src={logo} alt="logo" className="w-6 h-6" />
                 <div className="font-bold text-lg">FlowForms</div>
             </div>
-            <ul className="flex space-x-4 justify-center items-center">
+            <ul className="flex ml-8 space-x-4 justify-center items-center">
                 <li className="p-2 px-6 transition duration-300 cursor-pointer hover:bg-[#f6e49b] rounded-full">
                     <a href="#features" className="text-gray-800 text-lg font-semibold">Features</a>
                 </li>
@@ -72,13 +72,6 @@ const Navbar = () => {
                 <li className="p-2 px-6 transition duration-300 cursor-pointer hover:bg-[#f6e49b] rounded-full">
                     <a href="#faq" className="text-gray-800 text-lg font-semibold">FAQ</a>
                 </li>
-                <li className="p-2 px-6 transition duration-300 cursor-pointer hover:bg-[#f6e49b] rounded-full">
-                    <a href="#docs" className="text-gray-800 text-lg font-semibold">Docs</a>
-                </li>
-                <li className="p-2 px-6 transition duration-300 cursor-pointer hover:bg-[#f6e49b] rounded-full">
-                    <a href="#roadmap" className="text-gray-800 text-lg font-semibold">Roadmap</a>
-                </li>
-
             </ul>
             </div>
             

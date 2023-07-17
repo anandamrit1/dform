@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
-import logo1 from '../Images/logo.webp';
-import logo2 from '../Images/brand-d2a03308.png'
+import logo1 from '../Images/brand-d2a03308.png'
+import logo2 from '../Images/logo2.png';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { magic } from '../utils/magic';
 import { useRecoilState } from 'recoil';
@@ -36,7 +36,8 @@ const Dashboard_Navbar = ({ navbarShadow }: { navbarShadow: boolean }) => {
   const handleLogout = async () => {
     console.log("Logging Out...");
     await magic.user.logout();
-    apiClient.post("/auth/logout").then((res) =>     navigate("/")    )
+    apiClient.post("/auth/logout").then((res) =>     navigate("/")
+    )
     setUser(null);
   };
 
