@@ -53,6 +53,7 @@ export const publishFlowForm = async ({name, image, formId, data, description}: 
     const transactionId = await fcl.mutate({
         cadence: CreateNewForm,
         limit: 9999,
+        // @ts-ignore-next-line
         payer: signer,
         proposer: signer,
         args: (arg, t) => [
