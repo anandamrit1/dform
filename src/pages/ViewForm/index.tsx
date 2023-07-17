@@ -2,7 +2,7 @@
 import logo3 from '../../Images/logo3.webp'
 import ViewQuestion from './ViewQuestion';
 import { RiSendPlane2Line } from 'react-icons/ri';
-import { Formik, Form as MyForm } from 'formik';
+import { Formik, Form as MyForm, useFormikContext } from 'formik';
 import { useEffect, useState } from 'react';
 // import * as fcl from '@onflow/fcl';
 import { mockForm, mockQuestions } from '../../utils/constants';
@@ -12,6 +12,8 @@ import { Form, FormField } from '../../types/Form';
 import { atom, useRecoilState } from "recoil";
 import { useAxios } from "../../utils/axios";
 import { QuestionsPageSkeleton } from '../CreateForm/QuestionList';
+import { CircularProgress } from '@mui/material';
+import ViewSuccessPage from './ViewSuccessPage';
 
 interface FormValues {
     [key: string]: string;
@@ -46,7 +48,8 @@ const index = () => {
     const [form, setForm] = useState<AdminFormType | null>(null)
     const [questions, setQuestions] = useState<FormField[] | undefined>([])
     const [verified, setVerified] = useState<verificationStatus>("NOT_CONNECTED")
-
+    const [submitLoading, setSubmitLoading] = useState(false)
+    const [submitted, setSubmitted] = useState(false)
     // const formId = "form-0b8e10bf-683f-4e33-9b89-d117a1b45300";
     // const searchParams = new URLSearchParams(window.location.search);
     // const formId = searchParams.get('viewform');
@@ -90,6 +93,7 @@ const index = () => {
     ) : {}
 
     const onSubmit = async (values: FormValues) => {
+        setSubmitLoading(true)
         const requestBody = {
             formId: formId,
             data: values,
@@ -99,16 +103,19 @@ const index = () => {
                 ...requestBody
             })
 
-            // const data = await res.data;
-            // console.log(data);
-
+            const data = await res.data;
+            if (data) {
+                setSubmitted(true)
+            }
         } catch (e) {
             console.log(e)
+        } finally {
+            setSubmitLoading(false)
         }
     };
 
     // if (!user.loggedIn || (user.loggedIn && verified != "VERIFIED")) return <AccesGate verified={verified} setVerified={setVerified} user={user} accessGateNft={form.accessGateNft} />
-
+    
     return (
         <div className="w-full bg-white flex justify-center items-center">
             <div className=" fixed w-[3000px] h-2/3 -top-10 -rotate-12 opacity-30"
@@ -119,7 +126,7 @@ const index = () => {
 
             <div className={`flex flex-col z-10 bg-white justify-center items-center border shadow-2xl shadow-${backgroundColor}-300 w-full rounded-2xl shadow-indigo-00 p-8 mt-5 sm:mt-12 max-w-[760px] mb-[75px] md:mb-[150px] mx-5 sm:mx-12`}>
                 {
-                    form && questions ? <><div className="flex flex-col w-full space-y-5 mb-2 ">
+                    submitted ? <ViewSuccessPage metadata={form?.metadata!} /> : form && questions ? <><div className="flex flex-col w-full space-y-5 mb-2 ">
                         {/* <div className="flex flex-row w-full justify-start">
                         <img src={form?.thumbnailUrl} alt="logo3" className='h-20 w-20 rounded-full' />
                     </div> */}
@@ -136,7 +143,7 @@ const index = () => {
                                     <div className="flex w-full justify-end">
                                         <button type="submit" disabled={!isValid || !dirty} className={`bg-${form.backgroundColor}-600 text-white flex items-center gap-2 p-2.5 rounded-xl font-bold px-6 ${(!isValid || !dirty) ? "opacity-60" : "opacity-100"} transition duration-200 my-4 mb-10 border-2 hover:border-${form.backgroundColor}-600 border-white `}>
                                             Submit
-                                            <RiSendPlane2Line className="text-white" />
+                                            { submitLoading ? <CircularProgress color='inherit'/> :<RiSendPlane2Line className="text-white" />}
                                         </button>
                                     </div>
                                 </MyForm>
