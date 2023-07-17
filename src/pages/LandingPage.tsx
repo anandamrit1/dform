@@ -8,6 +8,7 @@ import powerfulQuestions from './../Images/powerfulQuestions.png'
 import blockchainFilter from './../Images/blockchainFilter.png'
 import brandCustomisation from './../Images/brandCustomisation.png'
 import { useState } from "react";
+import { magic } from "../utils/magic";
 
 {/* <button className="bg-green-500 p-4" onClick={() => navigate('/login')}>Login</button> */}
 
@@ -15,6 +16,27 @@ import { useState } from "react";
 
 function LandingPage() {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        performLoginChecks();
+      }, []);
+    
+      const performLoginChecks = async () => {
+        try {
+          const client = axios.create({
+            baseURL: "http://localhost:5000",
+            withCredentials: true,
+          });
+    
+          const res = await client.get("/auth/user");
+          console.log("Fetching user", res.data, res.status);
+          if (res.status === 200) navigate("/dashboard");
+        } catch (e) {
+          console.log("Fetching User Login Error: ", e);
+          await magic.user.logout();
+        }
+      };
+
     return (
         <div className='w-full  flex flex-col items-center'>
             <Navbar/>

@@ -6,11 +6,16 @@ import { magic } from '../utils/magic';
 import { useRecoilState } from 'recoil';
 import { globalUser } from './RequireAuth';
 import Skeleton from "react-loading-skeleton";
+import { useNavigate } from 'react-router-dom';
+import { useAxios } from '../utils/axios';
 
 const Dashboard_Navbar = ({ navbarShadow }: { navbarShadow: boolean }) => {
   const [showLogout, setShowLogout] = useState(false);
+
   const [user, setUser] = useRecoilState(globalUser);
   const logoutRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+  const apiClient = useAxios()
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -31,6 +36,7 @@ const Dashboard_Navbar = ({ navbarShadow }: { navbarShadow: boolean }) => {
   const handleLogout = async () => {
     console.log("Logging Out...");
     await magic.user.logout();
+    apiClient.post("/auth/logout").then((res) =>     navigate("/")    )
     setUser(null);
   };
 

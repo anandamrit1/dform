@@ -7,6 +7,8 @@ import QuestionsList from './QuestionList';
 import Settings from './Settings';
 import Responses from './Responses';
 import SuccessPage from './SuccessPage';
+import { useRecoilValue } from 'recoil';
+import { adminFormAtom } from '.';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -43,7 +45,9 @@ function a11yProps(index: number) {
 
 export default function DashboardTabs() {
     const [value, setValue] = React.useState(0);
+    const form = useRecoilValue(adminFormAtom)
 
+    const color = form?.backgroundColor ?? "green"
     const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
@@ -59,7 +63,7 @@ export default function DashboardTabs() {
             </Box>
             <div className=" fixed w-[10000px] h-2/3 -top-80 -rotate-6 -left-96 opacity-30 -z-40" 
             style={{ 
-                background: `radial-gradient(100% 50% at 50% 50%, ${"green"} 0%, #ffffff 100%)`,
+                background: `radial-gradient(100% 50% at 50% 50%, ${color} 0%, #ffffff 100%)`,
             }} 
             ></div>
             <CustomTabPanel value={value} index={0}>

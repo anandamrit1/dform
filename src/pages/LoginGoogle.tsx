@@ -2,17 +2,18 @@ import { useEffect } from "react";
 import { useAxios } from "../utils/axios";
 import { magic } from "../utils/magic";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import loadingFast from '../Images/loading-fast.gif'
 
 function LoginGoogle() {
   const [searchParams] = useSearchParams();
-  const loginMethod =  searchParams.get("method");
+  const loginMethod = searchParams.get("method");
 
   const navigate = useNavigate();
   const apiClient = useAxios()
 
   const loginOnServer = async (didToken: string) => {
     console.log("Logging in backend : ==> ");
-    await apiClient.post(
+    const res = await apiClient.post(
       "/auth/login/google",
       {},
       {
@@ -21,18 +22,22 @@ function LoginGoogle() {
         }
       }
     );
+    const { data } = res
+    if (data) {
+      navigate("/dashboard");
+    }
   }
 
   const finishEmailLogin = async () => {
     try {
-      const didToken =  searchParams.get("emailLoginToken");
+      const didToken = searchParams.get("emailLoginToken");
       // TODO: When token is empty
       await loginOnServer(didToken ?? '')
     } catch (err) {
       console.error("Email Login Error", err);
     }
   }
-  
+
   const finishGoogleLogin = async () => {
     try {
       console.log("Google Fetching Result : ==> ");
@@ -56,13 +61,12 @@ function LoginGoogle() {
 
   useEffect(() => {
     finishSocialLogin()
-  },[])
+  }, [])
 
   return (
-    <div className="flex flex-col h-full w-full bg-yellow-100 items-center justify-center gap-5">
-      <h1>Please wait login in progress</h1>
-      <div className="h1">
-        verify transaction
+    <div className="flex flex-col h-full w-full items-center justify-center gap-5">
+      <div className='flex justify-center items-center w-1/3 h-screen'>
+        <img src={loadingFast} alt="loading" />
       </div>
     </div>
   );

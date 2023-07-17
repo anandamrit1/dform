@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { magic } from "../utils/magic";
 import { useEffect } from "react";
 import { Google } from "@mui/icons-material";
+import loadingFast from '../Images/loading-fast.gif'
 
 function Login() {
   const [loading, setIsLoading] = React.useState<boolean>(false);
@@ -61,8 +62,8 @@ function Login() {
   return (
     <div className="flex flex-col h-screen w-full bg-green-100 items-center justify-center gap-5">
       {loading ? (
-        <div className="flex items-center">
-          <h1>Loading Please Wait</h1>
+        <div className="flex items-center justify-center h-screen w-screen absolute bg-white top-0 left-0">
+          <img src={loadingFast} alt="loading" />
         </div>
       ) : (
         <div className="flex flex-col items-center gap-4 bg-white px-8 py-12 w-1/3 rounded-2xl">

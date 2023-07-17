@@ -1,6 +1,6 @@
 import { IconButton, Tooltip } from "@mui/material"
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { Description, Palette, Share, Visibility } from "@mui/icons-material";
+import { Description, Palette, Publish, Share, Visibility } from "@mui/icons-material";
 import { atom, useRecoilState } from "recoil";
 import { useCallback, useEffect, useState } from "react";
 import DashboardTabs from "./DashboardTabs";
@@ -11,7 +11,9 @@ import { AxiosInstance } from "axios";
 import { omit } from 'lodash';
 import { debounce } from "../../utils/debounce";
 import ShareFormModal from "../../components/ShareFormModal";
-import ThemeModal from "../../components/themeModal";
+import ThemeModal from "../../components/ThemeModal";
+import { publishFlowForm } from "../../flow/transactions";
+import * as fcl from "@onflow/fcl";
 
 export type AdminFormType = Form & {
     feilds?: FormField[],
@@ -34,7 +36,7 @@ const updateFormHandler = async (form: AdminFormType, apiClient: AxiosInstance) 
         description: form?.description,
         isCaptchaEnabled: false,
         isEmailCopyOfResponseEnabled: false,
-        isPublished: false,
+        isPublished: form?.isPublished ?? false,
         metadata: form?.metadata ?? {}
     }
 
@@ -88,6 +90,35 @@ function CreateForm() {
         }
     }, [form])
 
+    const handlePublishForm = async () => {
+        if (form) {
+            const txId = await publishFlowForm({
+            formId: form?.id!,
+            name: form?.description!,
+            description: form?.description!,
+            data: "",
+            image: form?.backgroundUrl?.replaceAll("https://ipfs.io/ipfs/", "")!
+        })
+        console.log(txId)
+        fcl.tx(txId).subscribe((res: any) => {
+            console.log(res)
+            if (res?.statusString === "SEALED") {
+                setForm((prev) => ({
+                    ...prev!,
+                    isPublished: true
+                }))
+                setTimeout(() => navigate('/dashboard'), 3000)
+            } else if (res?.statusString === "EXECUTED") {
+                console.log('Transaction executed')
+            } else if (res?.statusString === "PENDING") {
+                console.log('Transaction pending')
+            } else if (res?.statusString === "EXPIRED") {
+                console.error('Transaction expired')
+            }
+        })
+        }
+    }
+
     return (
         <>
         <div className=" h-screen flex flex-col items-center">
@@ -117,6 +148,7 @@ function CreateForm() {
                     <IconButton
                         size="medium"
                         aria-label="back"
+                        onClick={() => window.open(`http://localhost:5173/form/${window.location.pathname.split('/')[2]}`)}
                     >
                         <Visibility />
                     </IconButton>
@@ -127,6 +159,9 @@ function CreateForm() {
                     >
                         <Share />
                     </IconButton>
+                    <button onClick={handlePublishForm} className={`bg-${form?.backgroundColor}-600 text-white flex items-center gap-2 p-2.5 rounded-xl font-bold px-6 transition duration-200 border-2 hover:border-${form?.backgroundColor}-600 border-white `}>
+                        Publish NFT
+                    </button>
                 </div>
             </div>
             <div className="flex-grow flex overflow-y-auto w-screen pb-24">
@@ -156,7 +191,6 @@ function CreateForm() {
                         className="absolute top-0 left-0 w-screen h-screen bg-gray-600 opacity-50"
                     ></div>
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-
                         <ThemeModal onClose={() => setShowThemeSidebar(false)} />
                     </div>
                 </div>
