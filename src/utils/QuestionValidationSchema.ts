@@ -49,6 +49,11 @@ export const QuestionsValidationSchema = (questions: FormField[] | undefined) =>
                         ? yupSchema = Yup.date().required('Date is required').typeError('Invalid date')
                         : yupSchema = Yup.date().nullable().typeError('Invalid date')
                 }
+                else if (element.type === 'walletConnect') {
+                    element.required
+                        ? yupSchema = Yup.string().required('Required')
+                        : yupSchema = Yup.string()
+                }
                 else {
                     yupSchema = Yup.string();
                 }
