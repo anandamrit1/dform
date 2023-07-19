@@ -36,7 +36,7 @@ function AccesGate({ user, imageUrl, accessGateNft, accessGateContract, accessGa
     useEffect(() => {
         const checkAccessGateNft = async (address: string) => {
             try {
-                const res = await axios.get(`http://localhost:5000/script/getNfts?address=${address}&publicPath=${accessGateNft}`)
+                const res = await axios.get(`https://flowform-backend-production.up.railway.app/script/getNfts?address=${address}&publicPath=${accessGateNft}`)
                 const data = await res.data
                 if (data.length > 0) {
                     setVerified("VERIFIED")
@@ -51,7 +51,7 @@ function AccesGate({ user, imageUrl, accessGateNft, accessGateContract, accessGa
 
          const checkAccessGateContract = async (address: string) => {
             try {
-                const res = await axios.get(`http://localhost:5000/script/getContracts?address=${address}`)
+                const res = await axios.get(`https://flowform-backend-production.up.railway.app/script/getContracts?address=${address}`)
                 const data = await res.data
                 if (data && data.length > 0) {
                     setVerified("VERIFIED")
@@ -66,7 +66,7 @@ function AccesGate({ user, imageUrl, accessGateNft, accessGateContract, accessGa
 
          const checkAccessGateFind = async (address: string) => {
             try {
-                const res = await axios.get(`http://localhost:5000/script/getFindProfile?address=${address}`)
+                const res = await axios.get(`https://flowform-backend-production.up.railway.app/script/getFindProfile?address=${address}`)
                 const data = await res.data
                 console.log(data)
                 if (data) {
@@ -97,7 +97,7 @@ function AccesGate({ user, imageUrl, accessGateNft, accessGateContract, accessGa
             if (accessGateNft || accessGateContract || accessGateFind) {
                 await fcl.authenticate()
             } else if (accessGateTwitter) {
-                window.open("http://localhost:5000/responder-auth/twitter")
+                window.open("https://flowform-backend-production.up.railway.app/responder-auth/twitter")
                 // const res = await apiClient.get(`/responder-auth/twitter`)
                 // const data = await res.data
                 // console.log(data)

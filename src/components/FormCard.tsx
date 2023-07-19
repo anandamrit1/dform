@@ -33,7 +33,7 @@ const FormCard = ({ form, onDelete, onClick}: FormCardProps) => {
     };
 
     const handleCopyLink = () => {
-        const textToCopy = `http://localhost:5173/form/${form.id}`;
+        const textToCopy = `https://flowforms-five.vercel.app/form/${form.id}`;
         navigator.clipboard.writeText(textToCopy);
         setIsLinkCopied(true);
     };

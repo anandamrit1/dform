@@ -48,7 +48,7 @@ const index = () => {
 
     useEffect(() => {
         const getFormDetails = async () => {
-            const res = await axios.get(`http://localhost:5000/view-form/${formId}`);
+            const res = await axios.get(`https://flowform-backend-production.up.railway.app/view-form/${formId}`);
             const data = await res.data;
             console.log(data)
             setForm(data)
@@ -93,7 +93,7 @@ const index = () => {
             data: values,
         };
         try {
-            const res = await axios.post("http://localhost:5000/response/create", {
+            const res = await axios.post("https://flowform-backend-production.up.railway.app/response/create", {
                 ...requestBody
             })
 

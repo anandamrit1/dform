@@ -28,7 +28,7 @@ function RequireAuth({ children }: { children: React.ReactNode}) {
     const performLoginChecks = async () => {
         try {
             let client = axios.create({
-                baseURL: "http://localhost:5000",
+                baseURL: "https://flowform-backend-production.up.railway.app",
                 withCredentials: true,
             });
 

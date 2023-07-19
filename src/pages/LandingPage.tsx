@@ -24,7 +24,7 @@ function LandingPage() {
       const performLoginChecks = async () => {
         try {
           const client = axios.create({
-            baseURL: "http://localhost:5000",
+            baseURL: "https://flowform-backend-production.up.railway.app",
             withCredentials: true,
           });
     
