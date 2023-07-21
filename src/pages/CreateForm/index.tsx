@@ -148,7 +148,7 @@ function CreateForm() {
                     <IconButton
                         size="medium"
                         aria-label="back"
-                        onClick={() => window.open(`https://flowforms-five.vercel.app/form/${window.location.pathname.split('/')[2]}`)}
+                        onClick={() => window.open(`https://flowforms.up.railway.app/form/${window.location.pathname.split('/')[2]}`)}
                     >
                         <Visibility />
                     </IconButton>
