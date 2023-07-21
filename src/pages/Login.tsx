@@ -67,12 +67,12 @@ function Login() {
         </div>
       ) : (
         <div className="flex flex-col items-center gap-4 bg-white px-8 py-12 w-1/3 rounded-2xl">
-          <form className="w-full">
+{/*           <form className="w-full">
             <input required className="p-4 w-full border-[1px] border-gray-600 rounded-md focus:outline-none" placeholder="Enter your email" type="text" value={email} onChange={handleChange} />
             <button type="submit" className="flex justify-center rounded-md w-full bg-green-400 hover:bg-green-500 text-white px-5 py-2 my-4" onClick={emailLogIn}>
               Login using email
             </button>
-          </form>
+          </form> */}
           <button className="flex gap-4 justify-center bg-white px-5 py-3 text-gray-600 rounded-md w-full border-[1px] border-gray-600" onClick={googleLogin}>
             <span><Google /></span>Login using google
           </button>
